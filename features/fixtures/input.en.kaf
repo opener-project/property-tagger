@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<KAF xml:lang="en">
+  <kafHeader>
+    <linguisticProcessors layer="text">
+      <lp timestamp="2013-04-29T15:58:56CEST" version="1.0" name="Open-nlp sentence splitter"/>
+      <lp timestamp="2013-04-29T15:58:56CEST" version="1.0" name="Open-nlp tokenizer"/>
+    </linguisticProcessors>
+    <linguisticProcessor layer="term">
+      <lp timestamp="2013-04-29T15:58:58CEST" version="1.0" name="TreeTagger_from_kaf"/>
+    </linguisticProcessor>
+  </kafHeader>
+  <text>
+    <wf wid="w_1" sent="1">This</wf>
+    <wf wid="w_2" sent="1">is</wf>
+    <wf wid="w_3" sent="1">a</wf>
+    <wf wid="w_4" sent="1">very</wf>
+    <wf wid="w_5" sent="1">nice</wf>
+    <wf wid="w_6" sent="1">hotel</wf>
+    <wf wid="w_7" sent="1">,</wf>
+    <wf wid="w_8" sent="1">but</wf>
+    <wf wid="w_9" sent="1">the</wf>
+    <wf wid="w_10" sent="1">beds</wf>
+    <wf wid="w_11" sent="1">were</wf>
+    <wf wid="w_12" sent="1">dirty</wf>
+    <wf wid="w_13" sent="1">,</wf>
+    <wf wid="w_14" sent="1">and</wf>
+    <wf wid="w_15" sent="1">the</wf>
+    <wf wid="w_16" sent="1">staff</wf>
+    <wf wid="w_17" sent="1">was</wf>
+    <wf wid="w_18" sent="1">really</wf>
+    <wf wid="w_19" sent="1">not</wf>
+    <wf wid="w_20" sent="1">friendly</wf>
+  </text>
+  <terms>
+    <term tid="t_1" lemma="this" morphofeat="DT" type="close" pos="D">
+      <span>
+        <target id="w_1"/>
+      </span>
+    </term>
+    <term tid="t_2" lemma="be" morphofeat="VBZ" type="open" pos="V">
+      <span>
+        <target id="w_2"/>
+      </span>
+    </term>
+    <term tid="t_3" lemma="a" morphofeat="DT" type="close" pos="D">
+      <span>
+        <target id="w_3"/>
+      </span>
+    </term>
+    <term tid="t_4" lemma="very" morphofeat="RB" type="open" pos="A">
+      <span>
+        <target id="w_4"/>
+      </span>
+    </term>
+    <term tid="t_5" lemma="nice" morphofeat="JJ" type="open" pos="G">
+      <span>
+        <target id="w_5"/>
+      </span>
+    </term>
+    <term tid="t_6" lemma="hotel" morphofeat="NN" type="open" pos="N">
+      <span>
+        <target id="w_6"/>
+      </span>
+    </term>
+    <term tid="t_7" lemma="," morphofeat="," type="open" pos="O">
+      <span>
+        <target id="w_7"/>
+      </span>
+    </term>
+    <term tid="t_8" lemma="but" morphofeat="CC" type="close" pos="C">
+      <span>
+        <target id="w_8"/>
+      </span>
+    </term>
+    <term tid="t_9" lemma="the" morphofeat="DT" type="close" pos="D">
+      <span>
+        <target id="w_9"/>
+      </span>
+    </term>
+    <term tid="t_10" lemma="bed" morphofeat="NNS" type="open" pos="N">
+      <span>
+        <target id="w_10"/>
+      </span>
+    </term>
+    <term tid="t_11" lemma="be" morphofeat="VBD" type="open" pos="V">
+      <span>
+        <target id="w_11"/>
+      </span>
+    </term>
+    <term tid="t_12" lemma="dirty" morphofeat="JJ" type="open" pos="G">
+      <span>
+        <target id="w_12"/>
+      </span>
+    </term>
+    <term tid="t_13" lemma="," morphofeat="," type="open" pos="O">
+      <span>
+        <target id="w_13"/>
+      </span>
+    </term>
+    <term tid="t_14" lemma="and" morphofeat="CC" type="close" pos="C">
+      <span>
+        <target id="w_14"/>
+      </span>
+    </term>
+    <term tid="t_15" lemma="the" morphofeat="DT" type="close" pos="D">
+      <span>
+        <target id="w_15"/>
+      </span>
+    </term>
+    <term tid="t_16" lemma="staff" morphofeat="NN" type="open" pos="N">
+      <span>
+        <target id="w_16"/>
+      </span>
+    </term>
+    <term tid="t_17" lemma="be" morphofeat="VBD" type="open" pos="V">
+      <span>
+        <target id="w_17"/>
+      </span>
+    </term>
+    <term tid="t_18" lemma="really" morphofeat="RB" type="open" pos="A">
+      <span>
+        <target id="w_18"/>
+      </span>
+    </term>
+    <term tid="t_19" lemma="not" morphofeat="RB" type="open" pos="A">
+      <span>
+        <target id="w_19"/>
+      </span>
+    </term>
+    <term tid="t_20" lemma="friendly" morphofeat="JJ" type="open" pos="G">
+      <span>
+        <target id="w_20"/>
+      </span>
+    </term>
+  </terms>
+</KAF>
