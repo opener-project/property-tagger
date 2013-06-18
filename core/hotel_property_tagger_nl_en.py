@@ -102,22 +102,27 @@ while current_token < len(my_data):
                 uniq_aspects[aspect].append(list_of_ids)
     current_token += 1
 
-nid = 1
-for aspect, ocurrences in uniq_aspects.items():
-    asp_element = etree.Element('property',
-                                attrib={'pid':'p_'+str(nid),
-                                        'type':aspect})
-    nid += 1
-    ref= etree.Element('references')
-    asp_element.append(ref)
-    for list_of_ids in ocurrences:
-      span_ele = etree.Element('span')
-      for id in list_of_ids:
-        target_ele = etree.Element('target',attrib={'id':id})
-        span_ele.append(target_ele)
-      ref.append(span_ele)
-      
-    my_kaf_tree.addLayer('properties',asp_element)
+#nid = 1
+#for aspect, ocurrences in uniq_aspects.items():
+#    asp_element = etree.Element('property',
+#                                attrib={'pid':'p_'+str(nid),
+#                                        'type':aspect})
+#    nid += 1
+#    ref= etree.Element('references')
+#    asp_element.append(ref)
+#    for list_of_ids in ocurrences:
+#      span_ele = etree.Element('span')
+#      for id in list_of_ids:
+#        target_ele = etree.Element('target',attrib={'id':id})
+#        span_ele.append(target_ele)
+#      ref.append(span_ele)
+#    my_kaf_tree.addLayer('properties',asp_element)
+
+
+## Code for generating the propery layer included in the Parser
+for aspect, list_of_lists in uniq_aspects.items():
+  for list_of_ids in list_of_lists:
+    my_kaf_tree.add_property(aspect,list_of_ids)
     
 my_kaf_tree.addLinguisticProcessor('SimplePropRecognizer_lookup','1.0','properties', my_time_stamp)
 my_kaf_tree.saveToFile(sys.stdout)

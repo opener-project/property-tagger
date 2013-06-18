@@ -1,3 +1,13 @@
+cleanliness location
+cleanliness location
+location location
+cleanliness location
+location location
+cleanliness staff
+location staff
+cleanliness staff
+location staff
+staff staff
 <?xml version='1.0' encoding='UTF-8'?>
 <KAF xml:lang="nl">
   <kafHeader>
@@ -318,36 +328,38 @@
       </span>
     </term>
   </terms>
-  <properties>
-    <property pid="p_1" type="cleanliness">
-      <references>
-        <span>
-          <target id="t_40"/>
-        </span>
-      </references>
-    </property>
-    <property pid="p_2" type="location">
-      <references>
-        <span>
-          <target id="t_6"/>
-        </span>
-        <span>
-          <target id="t_8"/>
-        </span>
-        <span>
-          <target id="t_21"/>
-        </span>
-      </references>
-    </property>
-    <property pid="p_3" type="staff">
-      <references>
-        <span>
-          <target id="t_46"/>
-        </span>
-        <span>
-          <target id="t_49"/>
-        </span>
-      </references>
-    </property>
-  </properties>
+  <features>
+    <properties>
+      <property fpid="fp1" lemma="cleanliness">
+        <references>
+          <span>
+            <target id="t_40"/>
+          </span>
+        </references>
+      </property>
+      <property fpid="fp2" lemma="location">
+        <references>
+          <span>
+            <target id="t_6"/>
+          </span>
+          <span>
+            <target id="t_8"/>
+          </span>
+          <span>
+            <target id="t_21"/>
+          </span>
+        </references>
+      </property>
+      <property fpid="fp3" lemma="staff">
+        <references>
+          <span>
+            <target id="t_46"/>
+          </span>
+          <span>
+            <target id="t_49"/>
+          </span>
+        </references>
+      </property>
+    </properties>
+  </features>
 </KAF>

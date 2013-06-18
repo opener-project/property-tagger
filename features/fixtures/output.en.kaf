@@ -1,3 +1,9 @@
+cleanliness sleeping_comfort
+cleanliness staff
+sleeping_comfort staff
+cleanliness staff
+sleeping_comfort staff
+staff staff
 <?xml version='1.0' encoding='UTF-8'?>
 <KAF xml:lang="en">
   <kafHeader>
@@ -136,30 +142,32 @@
       </span>
     </term>
   </terms>
-  <properties>
-    <property pid="p_1" type="cleanliness">
-      <references>
-        <span>
-          <target id="t_12"/>
-        </span>
-      </references>
-    </property>
-    <property pid="p_2" type="sleeping_comfort">
-      <references>
-        <span>
-          <target id="t_10"/>
-        </span>
-      </references>
-    </property>
-    <property pid="p_3" type="staff">
-      <references>
-        <span>
-          <target id="t_16"/>
-        </span>
-        <span>
-          <target id="t_20"/>
-        </span>
-      </references>
-    </property>
-  </properties>
+  <features>
+    <properties>
+      <property fpid="fp1" lemma="cleanliness">
+        <references>
+          <span>
+            <target id="t_12"/>
+          </span>
+        </references>
+      </property>
+      <property fpid="fp2" lemma="sleeping_comfort">
+        <references>
+          <span>
+            <target id="t_10"/>
+          </span>
+        </references>
+      </property>
+      <property fpid="fp3" lemma="staff">
+        <references>
+          <span>
+            <target id="t_16"/>
+          </span>
+          <span>
+            <target id="t_20"/>
+          </span>
+        </references>
+      </property>
+    </properties>
+  </features>
 </KAF>
