@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/opener/property_tagger'
+
+cli = Opener::PropertyTagger::CLI.new(:args => ARGV)
+
+cli.run(STDIN.tty? ? nil : STDIN.read)
