@@ -37,4 +37,5 @@ nosetests.xml
 outputs/
 tmp/
 core/site-packages/*
+pkg/
 
