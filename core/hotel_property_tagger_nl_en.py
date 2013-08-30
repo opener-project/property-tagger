@@ -4,6 +4,14 @@ import sys
 import getopt
 import codecs
 import os
+
+this_folder = os.path.dirname(os.path.realpath(__file__))
+
+# This updates the load path to ensure that the local site-packages directory
+# can be used to load packages (e.g. a locally installed copy of lxml).
+sys.path.append(os.path.join(this_folder, 'site-packages/pre_build'))
+sys.path.append(os.path.join(this_folder, 'site-packages/pre_install'))
+
 from VUKafParserPy import KafParser
 from lxml import etree
 from collections import defaultdict
@@ -22,7 +30,7 @@ verbose = False
 #lemma pos aspect
 ########################################
 def loadAspects(my_lang):
-  my_aspects = {}    
+  my_aspects = {}
   aspects_filename = os.path.join(__module_dir,'data',my_lang,'aspects.txt')
   if not os.path.exists(aspects_filename):
     print>>sys.stderr,'ERROR: file with aspects for the language',my_lang,'not found in',aspects_filename
@@ -42,7 +50,7 @@ def loadAspects(my_lang):
 
 
 
-if not sys.stdin.isatty(): 
+if not sys.stdin.isatty():
     ## READING FROM A PIPE
     pass
 else:
@@ -59,7 +67,7 @@ try:
 
 except getopt.GetoptError:
   pass
-    
+
 
 
 ## Load the tree and the list of terms with the id
@@ -70,18 +78,18 @@ except Exception as e:
   print>>sys.stdout,'Error parsing input. Input is required to be KAF'
   print>>sys.stdout,str(e)
   sys.exit(2)
-  
-  
+
+
 ## Get language from the KAF file
 my_lang  = my_kaf_tree.getLanguage()
 if my_lang not in ['nl','en']:
   print>>sys.stdout,'Error in the language specified in your KAF. The language is ',my_lang,' and possible values for this module '
   print>>sys.stdout,'are nl for Dutch and en for English'
   sys.exit(1)
-  
+
 my_aspects = loadAspects(my_lang)
 if verbose:
-  print>>sys.stderr,'Loaded ',len(my_aspects),'aspects from',my_aspects_filename 
+  print>>sys.stderr,'Loaded ',len(my_aspects),'aspects from',my_aspects_filename
 
 
 for term in my_kaf_tree.getTerms():
@@ -123,12 +131,12 @@ while current_token < len(my_data):
 for aspect, list_of_lists in uniq_aspects.items():
   for list_of_ids in list_of_lists:
     my_kaf_tree.add_property(aspect,list_of_ids)
-    
+
 my_kaf_tree.addLinguisticProcessor('SimplePropRecognizer_lookup','1.0','properties', my_time_stamp)
 my_kaf_tree.saveToFile(sys.stdout)
 
 
-    
-    
-    
-    
+
+
+
+
