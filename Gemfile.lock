@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    opener-property-tagger (0.1.0)
+    opener-property-tagger (0.2.0)
       httpclient
       opener-build-tools (>= 0.2.7)
       opener-webservice
