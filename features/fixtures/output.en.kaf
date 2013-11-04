@@ -1,9 +1,3 @@
-cleanliness sleeping_comfort
-cleanliness staff
-sleeping_comfort staff
-cleanliness staff
-sleeping_comfort staff
-staff staff
 <?xml version='1.0' encoding='UTF-8'?>
 <KAF xml:lang="en">
   <kafHeader>
@@ -11,8 +5,8 @@ staff staff
       <lp timestamp="2013-04-29T15:58:56CEST" version="1.0" name="Open-nlp sentence splitter"/>
       <lp timestamp="2013-04-29T15:58:56CEST" version="1.0" name="Open-nlp tokenizer"/>
     </linguisticProcessors>
-    <linguisticProcessor layer="properties">
-      <lp timestamp="*" version="1.0" name="SimplePropRecognizer_lookup"/>
+    <linguisticProcessor layer="features">
+      <lp timestamp="2013-11-04T09:40:27CET" version="4nov2013_1.0" name="VUA property tagger"/>
     </linguisticProcessor>
     <linguisticProcessor layer="term">
       <lp timestamp="2013-04-29T15:58:58CEST" version="1.0" name="TreeTagger_from_kaf"/>
@@ -144,21 +138,21 @@ staff staff
   </terms>
   <features>
     <properties>
-      <property fpid="fp1" lemma="cleanliness">
+      <property pid="p1" lemma="cleanliness">
         <references>
           <span>
             <target id="t_12"/>
           </span>
         </references>
       </property>
-      <property fpid="fp2" lemma="sleeping_comfort">
+      <property pid="p2" lemma="sleeping_comfort">
         <references>
           <span>
             <target id="t_10"/>
           </span>
         </references>
       </property>
-      <property fpid="fp3" lemma="staff">
+      <property pid="p3" lemma="staff">
         <references>
           <span>
             <target id="t_16"/>

@@ -16,6 +16,9 @@ from VUKafParserPy import KafParser
 from lxml import etree
 from collections import defaultdict
 
+__desc='VUA property tagger'
+__last_edited='4nov2013'
+__version='1.0'
 
 ###
 __module_dir = os.path.dirname(__file__)
@@ -132,7 +135,7 @@ for aspect, list_of_lists in uniq_aspects.items():
   for list_of_ids in list_of_lists:
     my_kaf_tree.add_property(aspect,list_of_ids)
 
-my_kaf_tree.addLinguisticProcessor('SimplePropRecognizer_lookup','1.0','properties', my_time_stamp)
+my_kaf_tree.addLinguisticProcessor(__desc,__last_edited+'_'+__version,'features', my_time_stamp)
 my_kaf_tree.saveToFile(sys.stdout)
 
 

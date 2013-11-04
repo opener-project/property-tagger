@@ -1,13 +1,3 @@
-cleanliness location
-cleanliness location
-location location
-cleanliness location
-location location
-cleanliness staff
-location staff
-cleanliness staff
-location staff
-staff staff
 <?xml version='1.0' encoding='UTF-8'?>
 <KAF xml:lang="nl">
   <kafHeader>
@@ -17,8 +7,8 @@ staff staff
     <linguisticProcessors layer="terms">
       <lp name="SentenceTokenizer" timestamp="2012-11-20T17:01:57CET" version="2.0"/>
     </linguisticProcessors>
-    <linguisticProcessor layer="properties">
-      <lp timestamp="*" version="1.0" name="SimplePropRecognizer_lookup"/>
+    <linguisticProcessor layer="features">
+      <lp timestamp="2013-11-04T09:40:43CET" version="4nov2013_1.0" name="VUA property tagger"/>
     </linguisticProcessor>
     <linguisticProcessor layer="properties">
       <lp timestamp="2012-11-20T17:01:57CET" version="1.0" name="SimplePropRecognizer_lookup"/>
@@ -330,14 +320,14 @@ staff staff
   </terms>
   <features>
     <properties>
-      <property fpid="fp1" lemma="cleanliness">
+      <property pid="p1" lemma="cleanliness">
         <references>
           <span>
             <target id="t_40"/>
           </span>
         </references>
       </property>
-      <property fpid="fp2" lemma="location">
+      <property pid="p2" lemma="location">
         <references>
           <span>
             <target id="t_6"/>
@@ -350,7 +340,7 @@ staff staff
           </span>
         </references>
       </property>
-      <property fpid="fp3" lemma="staff">
+      <property pid="p3" lemma="staff">
         <references>
           <span>
             <target id="t_46"/>
