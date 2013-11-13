@@ -33,7 +33,8 @@ nosetests.xml
 .pydevproject
 
 outputs/
-tmp/
+tmp/*
 core/site-packages/*
 pkg/
 
+!.gitkeep
