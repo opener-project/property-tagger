@@ -6,7 +6,7 @@
       <lp timestamp="2013-04-29T15:58:56CEST" version="1.0" name="Open-nlp tokenizer"/>
     </linguisticProcessors>
     <linguisticProcessor layer="features">
-      <lp timestamp="2013-11-04T09:40:27CET" version="4nov2013_1.0" name="VUA property tagger"/>
+      <lp timestamp="*" version="4nov2013_1.0" name="VUA property tagger"/>
     </linguisticProcessor>
     <linguisticProcessor layer="term">
       <lp timestamp="2013-04-29T15:58:58CEST" version="1.0" name="TreeTagger_from_kaf"/>

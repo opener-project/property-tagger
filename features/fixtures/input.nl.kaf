@@ -7,9 +7,6 @@
     <linguisticProcessors layer="terms">
       <lp name="SentenceTokenizer" timestamp="2012-11-20T17:01:57CET" version="2.0"/>
     </linguisticProcessors>
-    <linguisticProcessor layer="properties">
-      <lp timestamp="2012-11-20T17:01:57CET" version="1.0" name="SimplePropRecognizer_lookup"/>
-    </linguisticProcessor>
   </kafHeader>
   <text>
     <wf para="1" sent="1" wid="w_1">Heel</wf>
