@@ -3,12 +3,12 @@ VU-hotel-property-tagger_NL_EN_kernel
 
 Introduction
 ------------
-This module implements a tagger for hotel properties for Dutch and English, like words related with "room", "cleanliness", "staff" or "breakfast" for instance.
+This module implements a tagger for hotel properties for Dutch, English, French, Italian, Spanish and German, like words related with "room", "cleanliness", "staff" or "breakfast" for instance.
 The input for this module has to be a valid KAF file with at lest the term layer, as the lemmas will be used for detecting the hotel properties. The output is also
 a KAF valid file extended with the property layer. This module works for English and Dutch, and the language is read from the input KAF file, from the lang attribute
 of the KAF element, so be sure your preprocessors set properly this value or you will get an error.
 ````shell
-<KAF xml:lang="( en | nl)">
+<KAF xml:lang="( en | nl | fr | it | de | es)">
 ````
 
 Requirements

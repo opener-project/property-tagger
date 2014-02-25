@@ -85,9 +85,9 @@ except Exception as e:
 
 ## Get language from the KAF file
 my_lang  = my_kaf_tree.getLanguage()
-if my_lang not in ['nl','en']:
+if my_lang not in ['nl','en','de','fr','it','es']:
   print>>sys.stdout,'Error in the language specified in your KAF. The language is ',my_lang,' and possible values for this module '
-  print>>sys.stdout,'are nl for Dutch and en for English'
+  print>>sys.stdout,'are nl for Dutch ,en for English, es Spanish, fr French, it Italian or de German'
   sys.exit(1)
 
 my_aspects = loadAspects(my_lang)
