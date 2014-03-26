@@ -1,4 +1,4 @@
-VU-hotel-property-tagger_NL_EN_kernel
+property-tagger
 =====================================
 
 Introduction
