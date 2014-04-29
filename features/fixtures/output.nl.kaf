@@ -7,9 +7,9 @@
     <linguisticProcessors layer="terms">
       <lp name="SentenceTokenizer" timestamp="2012-11-20T17:01:57CET" version="2.0"/>
     </linguisticProcessors>
-    <linguisticProcessor layer="features">
+    <linguisticProcessors layer="features">
       <lp timestamp="*" version="4nov2013_1.0" name="VUA property tagger"/>
-    </linguisticProcessor>
+    </linguisticProcessors>
   </kafHeader>
   <text>
     <wf para="1" sent="1" wid="w_1">Heel</wf>
@@ -319,6 +319,7 @@
     <properties>
       <property pid="p1" lemma="cleanliness">
         <references>
+          <!--schoon-->
           <span>
             <target id="t_40"/>
           </span>
@@ -326,12 +327,15 @@
       </property>
       <property pid="p2" lemma="location">
         <references>
+          <!--hartje-->
           <span>
             <target id="t_6"/>
           </span>
+          <!--centrum-->
           <span>
             <target id="t_8"/>
           </span>
+          <!--loopafstand-->
           <span>
             <target id="t_21"/>
           </span>
@@ -339,9 +343,11 @@
       </property>
       <property pid="p3" lemma="staff">
         <references>
+          <!--service-->
           <span>
             <target id="t_46"/>
           </span>
+          <!--personeel-->
           <span>
             <target id="t_49"/>
           </span>

@@ -5,9 +5,9 @@
       <lp timestamp="2013-04-29T15:58:56CEST" version="1.0" name="Open-nlp sentence splitter"/>
       <lp timestamp="2013-04-29T15:58:56CEST" version="1.0" name="Open-nlp tokenizer"/>
     </linguisticProcessors>
-    <linguisticProcessor layer="features">
+    <linguisticProcessors layer="features">
       <lp timestamp="*" version="4nov2013_1.0" name="VUA property tagger"/>
-    </linguisticProcessor>
+    </linguisticProcessors>
     <linguisticProcessor layer="term">
       <lp timestamp="2013-04-29T15:58:58CEST" version="1.0" name="TreeTagger_from_kaf"/>
     </linguisticProcessor>
@@ -140,6 +140,7 @@
     <properties>
       <property pid="p1" lemma="cleanliness">
         <references>
+          <!--dirty-->
           <span>
             <target id="t_12"/>
           </span>
@@ -147,6 +148,7 @@
       </property>
       <property pid="p2" lemma="sleeping_comfort">
         <references>
+          <!--bed-->
           <span>
             <target id="t_10"/>
           </span>
@@ -154,9 +156,11 @@
       </property>
       <property pid="p3" lemma="staff">
         <references>
+          <!--staff-->
           <span>
             <target id="t_16"/>
           </span>
+          <!--friendly-->
           <span>
             <target id="t_20"/>
           </span>
