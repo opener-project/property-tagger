@@ -36,5 +36,6 @@ outputs/
 tmp/*
 core/site-packages/*
 pkg/
+Gemfile.lock
 
 !.gitkeep
