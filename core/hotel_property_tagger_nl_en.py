@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 import sys
-import getopt
+import argparse
+
 import codecs
 import os
 
@@ -31,9 +32,13 @@ verbose = False
 #lemma pos aspect
 #lemma pos aspect
 ########################################
-def loadAspects(my_lang):
+def loadAspects(my_lang,this_file=None):
   my_aspects = {}
-  aspects_filename = os.path.join(__module_dir,'data',my_lang,'aspects.txt')
+  if this_file is not None:
+    aspects_filename = this_file
+  else:
+    aspects_filename = os.path.join(__module_dir,'data',my_lang,'aspects.txt')
+  
   if not os.path.exists(aspects_filename):
     print>>sys.stderr,'ERROR: file with aspects for the language',my_lang,'not found in',aspects_filename
   else:
@@ -43,14 +48,18 @@ def loadAspects(my_lang):
       lemma,pos,aspect = fields
       my_aspects[lemma] = aspect
     fic.close()
-  return my_aspects
+  return aspects_filename, my_aspects
 ########################################
 
 
 
 ###### MAIN ########
 
+argument_parser = argparse.ArgumentParser(description='Tags a text with polarities at lemma level')
+argument_parser.add_argument("--no-time",action="store_false", default=True, dest="my_time_stamp",help="For not including timestamp in header") 
+argument_parser.add_argument("--lexicon", action="store", default=None, dest="lexicon", help="Force to use this lexicon")
 
+arguments = argument_parser.parse_args()
 
 if not sys.stdin.isatty():
     ## READING FROM A PIPE
@@ -58,18 +67,8 @@ if not sys.stdin.isatty():
 else:
     print>>sys.stderr,'Input stream required.'
     print>>sys.stderr,'Example usage: cat myUTF8file.kaf.xml |',sys.argv[0]
+    print>>sys.stderr,sys.argv[0]+' -h  for help'
     sys.exit(-1)
-
-my_time_stamp = True
-try:
-  opts, args = getopt.getopt(sys.argv[1:],"",["no-time"])
-  for opt, arg in opts:
-    if opt == "--no-time":
-      my_time_stamp = False
-
-except getopt.GetoptError:
-  pass
-
 
 
 ## Load the tree and the list of terms with the id
@@ -84,12 +83,18 @@ except Exception as e:
 
 ## Get language from the KAF file
 my_lang  = my_kaf_tree.getLanguage()
-if my_lang not in ['nl','en','de','fr','it','es']:
-  print>>sys.stdout,'Error in the language specified in your KAF. The language is ',my_lang,' and possible values for this module '
-  print>>sys.stdout,'are nl for Dutch ,en for English, es Spanish, fr French, it Italian or de German'
-  sys.exit(1)
 
-my_aspects = loadAspects(my_lang)
+my_aspects_filename = my_aspects = None
+if arguments.lexicon is None:
+  if my_lang not in ['nl','en','de','fr','it','es']:
+    print>>sys.stdout,'Error in the language specified in your KAF. The language is ',my_lang,' and possible values for this module '
+    print>>sys.stdout,'are nl for Dutch ,en for English, es Spanish, fr French, it Italian or de German'
+    sys.exit(1)
+
+  my_aspects_filename, my_aspects = loadAspects(my_lang)
+else:
+  my_aspects_filename, my_aspects = loadAspects(my_lang,this_file=arguments.lexicon)
+  
 if verbose:
   print>>sys.stderr,'Loaded ',len(my_aspects),'aspects from',my_aspects_filename
 
@@ -118,7 +123,7 @@ for aspect, list_of_lists in uniq_aspects.items():
   for list_of_ids, str_text in list_of_lists:
     my_kaf_tree.add_property(aspect,list_of_ids,str_text)
 
-my_kaf_tree.addLinguisticProcessor(__desc,__last_edited+'_'+__version,'features', my_time_stamp)
+my_kaf_tree.addLinguisticProcessor(__desc,__last_edited+'_'+__version,'features', arguments.my_time_stamp)
 my_kaf_tree.saveToFile(sys.stdout)
 
 
