@@ -31,7 +31,19 @@ module Opener
     # @return [String]
     #
     def command
-      return "#{adjust_python_path} python -E -OO #{kernel} #{args.join(' ')}"
+      return "#{adjust_python_path} python -E -OO #{kernel} #{args.join(' ')} --path #{path}"
+    end
+
+
+    ##
+    # Get the resource path for the lexicon files, defaults to an ENV variable
+    #
+    def path
+      return options[:resource_path] if options[:resource_path]
+      return ENV.fetch('PROPERTY_TAGGER_LEXICONS_PATH') {
+        raise ArgumentError, "No lexicon path provided."
+      }
+
     end
 
     ##
@@ -55,7 +67,7 @@ module Opener
     end
 
     ##
-    # capture3 method doesn't work properly with Jruby, so 
+    # capture3 method doesn't work properly with Jruby, so
     # this is a workaround
     #
     def capture(input)
@@ -67,7 +79,7 @@ module Opener
         [out_reader.value, err_reader.value, t.value]
       }
     end
-    
+
     ##
     # @return [String]
     #

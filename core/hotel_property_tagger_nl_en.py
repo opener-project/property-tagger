@@ -17,7 +17,7 @@ from lxml import etree
 from collections import defaultdict
 
 __desc='VUA property tagger'
-__last_edited='4nov2013'
+__last_edited='20may2014'
 __version='1.0'
 
 ###
@@ -37,8 +37,11 @@ def loadAspects(my_lang,this_file=None):
   if this_file is not None:
     aspects_filename = this_file
   else:
-    aspects_filename = os.path.join(__module_dir,'data',my_lang,'aspects.txt')
-  
+    filename = "{0}.txt".format(my_lang)
+    print>>sys.stderr, "filename thingy",filename
+    print>>sys.stderr, "path thingy",arguments.path
+    aspects_filename = os.path.join(arguments.path,filename)
+
   if not os.path.exists(aspects_filename):
     print>>sys.stderr,'ERROR: file with aspects for the language',my_lang,'not found in',aspects_filename
   else:
@@ -56,8 +59,9 @@ def loadAspects(my_lang,this_file=None):
 ###### MAIN ########
 
 argument_parser = argparse.ArgumentParser(description='Tags a text with polarities at lemma level')
-argument_parser.add_argument("--no-time",action="store_false", default=True, dest="my_time_stamp",help="For not including timestamp in header") 
+argument_parser.add_argument("--no-time",action="store_false", default=True, dest="my_time_stamp",help="For not including timestamp in header")
 argument_parser.add_argument("--lexicon", action="store", default=None, dest="lexicon", help="Force to use this lexicon")
+argument_parser.add_argument("--path", action="store", default=None, dest="path", help="Set the path where the property aspects are found.")
 
 arguments = argument_parser.parse_args()
 
@@ -94,7 +98,7 @@ if arguments.lexicon is None:
   my_aspects_filename, my_aspects = loadAspects(my_lang)
 else:
   my_aspects_filename, my_aspects = loadAspects(my_lang,this_file=arguments.lexicon)
-  
+
 if verbose:
   print>>sys.stderr,'Loaded ',len(my_aspects),'aspects from',my_aspects_filename
 

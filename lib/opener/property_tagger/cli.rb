@@ -1,3 +1,5 @@
+require 'opener/core/resource_switcher'
+
 module Opener
   class PropertyTagger
     ##
@@ -9,45 +11,46 @@ module Opener
     #  @return [OptionParser]
     #
     class CLI
-      attr_reader :options, :option_parser
+      attr_reader :options, :option_parser, :resource_switcher
+
+      DEFAULT_OPTIONS = {
+        :logging => false,
+      }
 
       ##
       # @param [Hash] options
       #
       def initialize(options = {})
         @options = DEFAULT_OPTIONS.merge(options)
+        @resource_switcher = Opener::Core::ResourceSwitcher.new
 
         @option_parser = OptionParser.new do |opts|
           opts.program_name   = 'polarity-tagger'
           opts.summary_indent = '  '
 
+          resource_switcher.bind(opts, @options)
+
           opts.on('-h', '--help', 'Shows this help message') do
             show_help
-          end
-
-          opts.on('-v', '--version', 'Shows the current version') do
-            show_version
           end
 
           opts.on('-l', '--log', 'Enable logging to STDERR') do
             @options[:logging] = true
           end
 
-          opts.separator <<-EOF
-
-Examples:
-
-  cat example.kaf | #{opts.program_name}    # Basic usage
-  cat example.kaf | #{opts.program_name}    # Logs information to STDERR
-          EOF
+          opts.on("--lexicon FILE", "Use a specific lexicon file") do |v|
+            @options[:lexicon] = v
+          end
         end
+
+        option_parser.parse!(options[:args])
+        resource_switcher.install(@options)
       end
 
       ##
       # @param [String] input
       #
       def run(input)
-        option_parser.parse!(options[:args])
 
         tagger = PropertyTagger.new(options)
 
