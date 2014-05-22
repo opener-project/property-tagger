@@ -153,7 +153,7 @@ Where to go from here
 
 * [Check the project websitere](http://opener-project.github.io)
 * [Checkout the webservice](http://opener.olery.com/property-tagger)
-* 
+
 Report problem/Get help
 -----------------------
 
