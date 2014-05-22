@@ -81,10 +81,10 @@ property-tagger-server --resource-path /path/to/resources
 After launching the server, you can reach the webservice at
 <http://localhost:9292>.
 
-The webservice takes several options that get passed along to (Puma)[http://puma.io], the
+The webservice takes several options that get passed along to [Puma](http://puma.io), the
 webserver used by the component. The options are:
 
-```
+
     -b, --bind URI                   URI to bind to (tcp://, unix://, ssl://)
     -C, --config PATH                Load PATH as a config file
         --control URL                The bind url to use for the control server
@@ -110,7 +110,7 @@ webserver used by the component. The options are:
     -w, --workers COUNT              Activate cluster mode: How many worker processes to create
         --tag NAME                   Additional text to display in process listing
     -h, --help                       Show help
-```
+
 
 
 ### Daemon
