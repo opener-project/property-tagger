@@ -11,7 +11,7 @@ the input KAF file, from the lang attribute of the KAF element  (make sure your 
 
 This software is part of a larger collection of natural language processing
 tools known as "the OpeNER project". You can find more information about the
-project at (the OpeNER portal)[http://opener-project.github.io]. There you can
+project at the [OpeNER portal](http://opener-project.github.io). There you can
 also find references to terms like KAF (an XML standard to represent linguistic
 annotations in texts), component, cores, scenario's and pipelines.
 
@@ -112,10 +112,8 @@ Description of dependencies
 ---------------------------
 
 This component runs best if you run it in an environment suited for OpeNER
-components. You can find an installation guide and helper tools in the (OpeNER
-installer)[https://github.com/opener-project/opener-installer] and (an
-installation guide on the Opener
-Website)[http://opener-project.github.io/getting-started/how-to/local-installation.html]
+components. You can find an installation guide and helper tools in the [OpeNER installer](https://github.com/opener-project/opener-installer) and an
+[installation guide on the Opener Website](http://opener-project.github.io/getting-started/how-to/local-installation.html)
 
 At least you need the following system setup:
 
@@ -135,11 +133,11 @@ Domain Adaption and Language Extension
 
 The lexicons in the resource path must be stored in a file and follow this format:
 
-````shell
-surf	verb	facilities
-surfer	noun	facilities
-surfing	verb	facilities
-```
+    shell
+    surf	verb	facilities
+    surfer	noun	facilities
+    surfing	verb	facilities
+
 
 So, one aspect per line, with 3 fields separated by a tabulator, the first one is the word or span of words (in this case use whitespaces), then the part
 of speech (which actually it is not use, you can  include a dummy label) and finally the aspect class associated with the word.
@@ -153,21 +151,20 @@ can find the core technolies (python) in the ```/core``` directory.
 Where to go from here
 ---------------------
 
-* Check (the project websitere)[http://opener-project.github.io]
-* (Checkout the webservice)[http://opener.olery.com/property-tagger]
-
+* [Check the project websitere](http://opener-project.github.io)
+* [Checkout the webservice](http://opener.olery.com/property-tagger)
+* 
 Report problem/Get help
 -----------------------
 
-If you encounter problems, please email support@opener-project.eu or leave an
-issue in the (issue tracker)[https://github.com/opener-project/property-tagger/issues].
-
+If you encounter problems, please email <support@opener-project.eu> or leave an
+issue in the [issue tracker](https://github.com/opener-project/property-tagger/issues).
 
 Contributing
 ------------
 
-1. Fork it ( http://github.com/opener-project/property-tagger/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
+1. Fork it <http://github.com/opener-project/property-tagger/fork>
+2. 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
