@@ -8,7 +8,7 @@
       <lp name="SentenceTokenizer" timestamp="2012-11-20T17:01:57CET" version="2.0"/>
     </linguisticProcessors>
     <linguisticProcessors layer="features">
-      <lp timestamp="*" version="4nov2013_1.0" name="VUA property tagger"/>
+      <lp timestamp="*" version="20may2014_1.0" name="VUA property tagger"/>
     </linguisticProcessors>
   </kafHeader>
   <text>

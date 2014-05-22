@@ -48,8 +48,9 @@ def loadAspects(my_lang,this_file=None):
     fic = codecs.open(aspects_filename,'r','utf-8')
     for line in fic:
       fields = line.strip().split('\t')
-      lemma,pos,aspect = fields
-      my_aspects[lemma] = aspect
+      if len(fields) == 3:
+        lemma,pos,aspect = fields
+        my_aspects[lemma] = aspect
     fic.close()
   return aspects_filename, my_aspects
 ########################################
