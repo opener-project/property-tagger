@@ -25,7 +25,7 @@ Installing the property-tagger can be done by executing:
 
     gem install opener-property-tagger
 
-Please bare in mind that all components in OpeNER take KAF as an input and
+Please keep in mind that all components in OpeNER take KAF as an input and
 output KAF by default.
 
 
