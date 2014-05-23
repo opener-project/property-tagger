@@ -29,7 +29,8 @@ task :compile => 'python:compile'
 
 desc 'Runs the tests'
 task :test => :compile do
-  sh('cucumber features')
+  sh 'cucumber features'
+  sh 'rspec spec'
 end
 
 desc 'Performs preparations for building the Gem'
