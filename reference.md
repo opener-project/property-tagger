@@ -10,8 +10,7 @@ This application reads a text from standard input in order process it.
 
     cat some_kind_of_kaf_file.kaf | property-tagger --resource-path /path/to/lexicons/
 
-The property tagger will search in the resource-path for files named
-```{language_code}.txt```, for example ```en.txt```.
+The property tagger will search in the resource-path for files named ```{language_code}.txt```, for example ```en.txt```.
 
 An excerpt of a potential output would than be:
 
@@ -52,17 +51,11 @@ An excerpt of a potential output would than be:
 
 #### Downloading resources on the fly
 
-You can also download resources on the fly at boot time. This is particularly
-interesting when launching a daemon or webservice, but it might also be useful
-from the command line.
+You can also download resources on the fly at boot time. This is particularly interesting when launching a daemon or webservice, but it might also be useful from the command line.
 
-When given the ```--resource-url``` option the software will download the file
-given (.zip or .tar.gz) into the /tmp folder and extract it into the ```resource-path``` folder.
-Subsequently it will use that resource-path to do its work.
+When given the ```--resource-url``` option the software will download the file given (.zip or .tar.gz) into the /tmp folder and extract it into the ```resource-path``` folder. Subsequently it will use that resource-path to do its work.
 
-If the resource has been downloaded before, and it is detected that the
-downloaded file is the same as the file on the url location, it will not
-download the file again, but will simply re-extract the file.
+If the resource has been downloaded before, and it is detected that the downloaded file is the same as the file on the url location, it will not download the file again, but will simply re-extract the file.
 
 ```
 cat some-kind-of-kaf.kaf | property-tagger \
@@ -81,8 +74,7 @@ property-tagger-server --resource-path /path/to/resources
 After launching the server, you can reach the webservice at
 <http://localhost:9292>.
 
-The webservice takes several options that get passed along to [Puma](http://puma.io), the
-webserver used by the component. The options are:
+The webservice takes several options that get passed along to [Puma](http://puma.io), the webserver used by the component. The options are:
 
 
     -b, --bind URI                   URI to bind to (tcp://, unix://, ssl://)
@@ -140,9 +132,7 @@ Daemon options:
 
 #### Environment Variables
 
-These daemons make use of Amazon SQS queues and other Amazon services.
-The access to these services and other environment variables can be configured
-using a .opener-daemons-env file in the home directory of the current user.
+These daemons make use of Amazon SQS queues and other Amazon services. The access to these services and other environment variables can be configured using a .opener-daemons-env file in the home directory of the current user.
 
 It is also possible to provide the environment variables directly to the deamon.
 
@@ -160,8 +150,7 @@ We advise to have the following environment variables available:
 
 ### Languages
 
-That depends on your lexicons. The project will soon open up News lexicons for
-the following languages:
+That depends on your lexicons. The project will soon open up News lexicons for the following languages:
 
 * Dutch (nl)
 * English (en)
