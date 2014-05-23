@@ -1,14 +1,19 @@
 #!/usr/bin/env ruby
 
 require 'opener/daemons'
-require 'opener/core/argv_splitter'
+require 'opener/core/resource_switcher'
 
 require_relative '../lib/opener/property_tagger'
 
-daemon_args, kernel_args = Opener::Core::ArgvSplitter.split(ARGV)
+switcher      = Opener::Core::ResourceSwitcher.new
+switcher_opts = {}
 
-factory = Opener::PropertyTagger::Factory.new(:args => kernel_args)
-options = Opener::Daemons::OptParser.parse!(daemon_args)
-daemon  = Opener::Daemons::Daemon.new(factory, options)
+parser = Opener::Daemons::OptParser.new do |opts|
+  switcher.bind(opts, switcher_opts)
+end
 
+options = parser.parse!(ARGV)
+daemon  = Opener::Daemons::Daemon.new(Opener::PropertyTagger, options)
+
+switcher.install(switcher_opts)
 daemon.start
