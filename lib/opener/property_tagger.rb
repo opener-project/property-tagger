@@ -3,7 +3,6 @@ require 'optparse'
 
 require_relative 'property_tagger/version'
 require_relative 'property_tagger/cli'
-require_relative 'property_tagger/factory'
 
 module Opener
   ##
