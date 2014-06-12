@@ -54,17 +54,7 @@ module Opener
 
         tagger = PropertyTagger.new(options)
 
-        stdout, stderr, process = tagger.run(input)
-
-        if process.success?
-          puts stdout
-
-          if options[:logging] and !stderr.empty?
-            STDERR.puts(stderr)
-          end
-        else
-          abort stderr
-        end
+        puts tagger.run(input)
       end
 
       private
