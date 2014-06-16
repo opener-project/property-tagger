@@ -1,4 +1,4 @@
-require 'opener/core/resource_switcher'
+require 'opener/core'
 
 module Opener
   class PropertyTagger
