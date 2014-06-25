@@ -22,6 +22,7 @@ Gem::Specification.new do |gem|
     '*.gemspec',
     '*_requirements.txt',
     'README.md',
+    'LICENSE.txt',
     'exec/**/*',
     'task/*'
   ]).select { |file| File.file?(file) }
