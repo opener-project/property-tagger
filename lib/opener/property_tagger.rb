@@ -1,6 +1,5 @@
 require 'open3'
 require 'optparse'
-require 'opener/core'
 
 require_relative 'property_tagger/version'
 require_relative 'property_tagger/cli'
@@ -11,6 +10,9 @@ module Opener
   #
   # @!attribute [r] options
   #  @return [Hash]
+  #
+  # @!attribute [r] args
+  #  @return [Array]
   #
   class PropertyTagger
     attr_reader :options, :args
@@ -35,16 +37,20 @@ module Opener
       return "python -E #{kernel} #{args.join(' ')} --path #{path}"
     end
 
-
     ##
     # Get the resource path for the lexicon files, defaults to an ENV variable
     #
+    # @return [String]
+    #
     def path
-      return options[:resource_path] if options[:resource_path]
-      return ENV.fetch('PROPERTY_TAGGER_LEXICONS_PATH') {
-        raise ArgumentError, "No lexicon path provided."
-      }
+      path = options[:resource_path] || ENV['RESOURCE_PATH'] ||
+        ENV['PROPERTY_TAGGER_LEXICONS_PATH']
 
+      unless path
+        raise ArgumentError, 'No lexicon path provided'
+      end
+
+      return path
     end
 
     ##
@@ -55,13 +61,11 @@ module Opener
     # @return [Array]
     #
     def run(input)
-      begin
-        stdout, stderr, process = capture(input)
-        raise stderr unless process.success?
-        return stdout
-      rescue Exception => error
-        return Opener::Core::ErrorLayer.new(input, error.message, self.class).add
-      end
+      stdout, stderr, process = capture(input)
+
+      raise stderr unless process.success?
+
+      return stdout
     end
 
     protected

@@ -5,72 +5,62 @@ module Opener
     ##
     # CLI wrapper around {Opener::PropertyTagger} using OptionParser.
     #
-    # @!attribute [r] options
-    #  @return [Hash]
-    # @!attribute [r] option_parser
-    #  @return [OptionParser]
+    # @!attribute [r] parser
+    #  @return [Slop]
     #
     class CLI
-      attr_reader :options, :option_parser, :resource_switcher
+      attr_reader :parser
 
-      DEFAULT_OPTIONS = {
-        :logging => false,
-      }
+      def initialize
+        @parser = configure_slop
+      end
 
       ##
-      # @param [Hash] options
+      # @param [Array] argv
       #
-      def initialize(options = {})
-        @options = DEFAULT_OPTIONS.merge(options)
-        @resource_switcher = Opener::Core::ResourceSwitcher.new
+      def run(argv = ARGV)
+        parser.parse(argv)
+      end
 
-        @option_parser = OptionParser.new do |opts|
-          opts.program_name   = 'polarity-tagger'
-          opts.summary_indent = '  '
+      ##
+      # @return [Slop]
+      #
+      def configure_slop
+        return Slop.new(:strict => false, :indent => 2, :help => true) do
+          banner 'Usage: property-tagger [OPTIONS] -- [PYTHON OPTIONS]'
 
-          resource_switcher.bind(opts, @options)
+          separator <<-EOF.chomp
 
-          opts.on('-h', '--help', 'Shows this help message') do
-            show_help
+About:
+
+    Component for finding the properties in a KAF document. This command reads
+    input from STDIN.
+
+Examples:
+
+    Processing a KAF file:
+
+        cat some_file.kaf | property-tagger
+
+    Displaying the underlying kernel options:
+
+        property-tagger -- --help
+
+          EOF
+
+          separator "\nOptions:\n"
+
+          on :v, :version, 'Shows the current version' do
+            abort "property-tagger v#{VERSION} on #{RUBY_DESCRIPTION}"
           end
 
-          opts.on('-l', '--log', 'Enable logging to STDERR') do
-            @options[:logging] = true
-          end
+          run do |opts, args|
+            tagger = PropertyTagger.new(:args => args)
+            input  = STDIN.tty? ? nil : STDIN.read
 
-          opts.on("--lexicon FILE", "Use a specific lexicon file") do |v|
-            @options[:lexicon] = v
+            puts tagger.run(input)
           end
         end
-
-        option_parser.parse!(options[:args])
-        resource_switcher.install(@options)
-      end
-
-      ##
-      # @param [String] input
-      #
-      def run(input)
-
-        tagger = PropertyTagger.new(options)
-
-        puts tagger.run(input)
-      end
-
-      private
-
-      ##
-      # Shows the help message and exits the program.
-      #
-      def show_help
-        abort option_parser.to_s
-      end
-
-      ##
-      # Shows the version and exits the program.
-      #
-      def show_version
-        abort "#{option_parser.program_name} v#{VERSION} on #{RUBY_DESCRIPTION}"
       end
     end # CLI
   end # PropertyTagger

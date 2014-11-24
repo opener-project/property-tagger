@@ -1,7 +1,12 @@
 #!/usr/bin/env ruby
 
+require 'opener/core'
+
 require_relative '../lib/opener/property_tagger'
 
-cli = Opener::PropertyTagger::CLI.new(:args => ARGV)
+switcher = Opener::Core::ResourceSwitcher.new
+cli      = Opener::PropertyTagger::CLI.new
 
-cli.run(STDIN.tty? ? nil : STDIN.read)
+switcher.bind(cli.parser)
+
+cli.run
