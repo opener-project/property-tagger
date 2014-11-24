@@ -1,5 +1,5 @@
 require 'open3'
-require 'optparse'
+require 'slop'
 
 require_relative 'property_tagger/version'
 require_relative 'property_tagger/cli'
