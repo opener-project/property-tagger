@@ -116,7 +116,7 @@ while current_token < len(my_data):
         # Build an n-gram of size tam_ngram and beginning in current_token
         if current_token + tam_ngram <=  len(my_data):
             ngram = ' '.join(lemma for lemma,_ in my_data[current_token:current_token+tam_ngram])
-            aspect = my_aspects.get(ngram,None)
+            aspect = my_aspects.get(ngram.lower(),None)
             if aspect is not None:
                 list_of_ids = [id for _,id in my_data[current_token:current_token+tam_ngram]]
                 uniq_aspects[aspect].append((list_of_ids,ngram))

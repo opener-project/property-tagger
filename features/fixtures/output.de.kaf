@@ -1379,19 +1379,39 @@
   </opinions>
   <features>
     <properties>
-      <property pid="p1" lemma="location">
+      <property pid="p1" lemma="room">
+        <references>
+          <!--Doppelzimmer-->
+          <span>
+            <target id="t33"/>
+          </span>
+        </references>
+      </property>
+      <property pid="p2" lemma="location">
         <references>
           <!--direkt-->
           <span>
             <target id="t18"/>
           </span>
+          <!--Ausblick-->
+          <span>
+            <target id="t24"/>
+          </span>
         </references>
       </property>
-      <property pid="p2" lemma="staff">
+      <property pid="p3" lemma="staff">
         <references>
+          <!--Service-->
+          <span>
+            <target id="t6"/>
+          </span>
           <!--professionell-->
           <span>
             <target id="t13"/>
+          </span>
+          <!--Service-->
+          <span>
+            <target id="t16"/>
           </span>
         </references>
       </property>
