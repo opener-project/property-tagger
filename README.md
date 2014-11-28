@@ -120,14 +120,10 @@ At least you need the following system setup:
 * Ruby 1.9.3 or newer
 * Python 2.6
 * lxml installed
+* libarchive (for running the tests and such), on Debian/Ubuntu based systems
+  this can be installed using `sudo apt-get install libarchive-dev`
 
-### Dependencies if you want to modify the component:
-
-* Maven (for building the Gem)
-
-
-Domain Adaption and Language Extension
---------------------------------------
+## Domain Adaption and Language Extension
 
 The lexicons in the resource path must be stored in a file and follow this
 format:
@@ -157,8 +153,7 @@ If you encounter problems, please email <support@opener-project.eu> or leave an
 issue in the
 [issue tracker](https://github.com/opener-project/property-tagger/issues).
 
-Contributing
-------------
+## Contributing
 
 1. Fork it <http://github.com/opener-project/property-tagger/fork>
 2. 2. Create your feature branch (`git checkout -b my-new-feature`)
