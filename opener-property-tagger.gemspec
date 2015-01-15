@@ -7,7 +7,6 @@ Gem::Specification.new do |gem|
   gem.summary     = 'Property tagger for hotels in Dutch and English.'
   gem.description = gem.summary
   gem.homepage    = 'http://opener-project.github.com/'
-  gem.extensions  = ['ext/hack/Rakefile']
 
   gem.license = 'Apache 2.0'
 
