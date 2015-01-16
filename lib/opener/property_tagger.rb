@@ -42,7 +42,7 @@ module Opener
         raise ArgumentError, 'No lexicon path provided'
       end
 
-      return path
+      return File.expand_path(path)
     end
 
     ##
@@ -59,13 +59,8 @@ module Opener
     end
 
     protected
-
-    ##
-    # capture3 method doesn't work properly with Jruby, so
-    # this is a workaround
-    #
     def process(input)
-      processor = Opener::PropertyTagger::Processor.new(input, !args.include?("--no-time"))
+      processor = Opener::PropertyTagger::Processor.new(input, path, !args.include?("--no-time"))
       return processor.process
     end
   end # PolarityTagger

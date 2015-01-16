@@ -9,10 +9,11 @@ module Opener
     # Class that applies property tagging to a given input KAF file.
     #
     class Processor
-      attr_accessor :document, :language, :aspects, :terms, :timestamp
+      attr_accessor :document, :aspects_path, :language, :aspects, :terms, :timestamp
       
-      def initialize(file, timestamp = true)
+      def initialize(file, aspects_path, timestamp = true)
         @document = Nokogiri::XML(file)
+        @aspects_path = aspects_path
         raise 'Error parsing input. Input is required to be KAF' unless is_kaf?
         @timestamp = timestamp
       end
@@ -198,7 +199,7 @@ module Opener
       end
       
       def aspects_file
-        File.expand_path("../../../../config/#{language}.txt", __FILE__)
+        File.expand_path("#{aspects_path}/#{language}.txt", __FILE__)
       end
     end # Processor
   end # PropertyTagger
