@@ -3,11 +3,7 @@ require 'rake/clean'
 
 CLEAN.include(
   'tmp/*',
-  'pkg',
-  '**/*.pyo',
-  '**/*.pyc',
-  'core/site-packages/pre_build',
-  'core/site-packages/pre_install'
+  'pkg'
 )
 
 Dir.glob(File.expand_path('../task/*.rake', __FILE__)) do |task|
