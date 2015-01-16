@@ -1,4 +1,6 @@
 require 'nokogiri'
+require 'rexml/document'
+require 'rexml/formatters/pretty'
 require 'yaml'
 
 module Opener
@@ -15,6 +17,11 @@ module Opener
         @timestamp = timestamp
       end
       
+      
+      ##
+      # Processes the input and returns the new KAF output.
+      # @return [String]
+      #
       def process
         @language = get_language
         @aspects  = load_aspects
@@ -28,17 +35,19 @@ module Opener
         index = 1
         
         existing_aspects.each_pair do |key,value|
-          value.uniq.each do |v|
-            add_property(key, v, index)
-          end
+          add_property(key, value, index)
           index += 1
         end
         
         add_linguistic_processor
-        
-        return document.to_xml(:indent => 2)
+
+        return pretty_print(document)
       end
       
+      ##
+      # Loads the aspects from the txt file
+      # @return [Hash]
+      #
       def load_aspects
         aspects_hash = Hash.new
         File.foreach(aspects_file) do |line|
@@ -51,11 +60,19 @@ module Opener
         
         return aspects_hash        
       end
-
+      
+      ##
+      # Get the language of the input file.
+      # @return [String]
+      #
       def get_language
         document.root.attr('xml:lang')
       end
       
+      ##
+      # Get the terms from the input file
+      # @return [Hash]
+      #
       def get_terms
         terms_hash = Hash.new
         document.at('terms').css('term').each do |term|
@@ -65,6 +82,10 @@ module Opener
         return terms_hash
       end
       
+      ##
+      # Check which terms belong to an aspect (property)
+      # @return [Hash]
+      #
       def extract_aspects
         term_ids  = terms.keys
         lemmas    = terms.values
@@ -80,7 +101,7 @@ module Opener
           (0..max_ngram).each do |tam_ngram|
             if current_token + tam_ngram <= terms.count
               ngram  = lemmas[current_token..current_token+tam_ngram].join(" ").downcase
-              if aspects[ngram.to_sym]
+              if aspects[ngram.to_sym] && !aspects[ngram.to_sym][:aspect].gsub(" ", "").empty?
                 aspect = aspects[ngram.to_sym][:aspect]
                 ids    = term_ids[current_token..current_token+tam_ngram]
                 uniq_aspects[aspect.to_sym] = [] unless uniq_aspects[aspect.to_sym]
@@ -94,59 +115,84 @@ module Opener
         return Hash[uniq_aspects.sort]
       end
       
+      ##
+      # Remove the features layer from the KAF file if it exists and add a new
+      # one.
       def add_features_layer
         document.at('features').remove if document.at('features')
-        node = Nokogiri::XML::Node.new "features", document
-        document.root.add_child(node)
+        new_node("features", "KAF")
       end
       
+      ##
+      # Add the properties layer as a child to the features layer.
       def add_properties_layer
-        features_node = document.at('features')
-        node = Nokogiri::XML::Node.new "properties", features_node
-        features_node.add_child(node)
+        new_node("properties", "features")
       end
       
       def add_property(key, value, index)
-        properties_node = document.at('properties')
-        property_node = Nokogiri::XML::Node.new "property", properties_node
-        properties_node.add_child(property_node)
-        property_node['pid']   = "p#{index.to_s}"
+        property_node = new_node("property", "properties")
         property_node['lemma'] = key.to_s
-        references_node = Nokogiri::XML::Node.new "references", property_node
-        property_node.add_child(references_node)
-        references_node.inner_html = "<!--#{value.last}-->\n"
-        span_node = Nokogiri::XML::Node.new "span", references_node
-        references_node.add_child(span_node)
-        value.first.each do |v|
-          target_node = Nokogiri::XML::Node.new "target", span_node
-          span_node.add_child(target_node)
-          target_node['id'] = v.to_s
+        property_node['pid']   = "p#{index.to_s}"
+        references_node = new_node("references", property_node)
+        value.uniq.each do |v|
+          comment = Nokogiri::XML::Comment.new(references_node, v.last)
+          references_node.add_child(comment)
+          span_node = new_node("span", references_node)
+          v.first.each do |val|
+            target_node = new_node("target", span_node)
+            target_node['id'] = val.to_s
+          end
         end
       end
       
       def add_linguistic_processor
         description = 'VUA property tagger'
-        last_edited = '20may2014'
-        version     = '1.0'
+        last_edited = '16jan2015'
+        version     = '2.0'
         
-        kaf_header_node = document.at('kafHeader')
-        node = Nokogiri::XML::Node.new "linguisticProcessors", kaf_header_node
-        kaf_header_node.add_child(node)
+        node = new_node("linguisticProcessors", "kafHeader")
         node['layer'] = "features"
-        lp_node = Nokogiri::XML::Node.new "lp", node
-        node.add_child(lp_node)
+        lp_node = new_node("lp", node)
         lp_node['version'] = [last_edited, version].join("_")
         lp_node['name']    = description
         
         if timestamp
           format = "%Y-%m-%dT%H:%M:%S%Z"
           lp_node['timestamp'] = Time.now.strftime(format)
+        else
+          lp_node['timestamp'] = "*"
         end
       end
       
-      protected
       ##
-      # Check if input is a KAF file.      
+      # Format the output document properly.
+      # Nokogiri isn't very good at that so we abuse REXML for that.
+      # @return [String]
+      #
+      def pretty_print(document)
+        doc = REXML::Document.new document.to_xml
+        doc.context[:attribute_quote] = :quote
+        out = ""
+        formatter = REXML::Formatters::Pretty.new
+        formatter.compact = true
+        formatter.write(doc, out)
+        
+        return out
+      end
+      
+      protected
+      def new_node(tag, parent)
+        parent_node =  parent.kind_of?(String) ? document.at(parent) : parent
+        node = Nokogiri::XML::Node.new tag, parent_node
+        parent_node.add_child(node)
+        
+        return node
+      end
+      
+      ##
+      # Check if input is a KAF file.
+      # @return [Boolean]
+      #
       def is_kaf?
         !!document.at("KAF")
       end
