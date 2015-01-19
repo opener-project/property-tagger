@@ -10,15 +10,15 @@ module Opener
     #
     class Processor
       attr_accessor :document, :aspects_path, :language, :aspects, :terms, :timestamp
-      
+
       def initialize(file, aspects_path, timestamp = true)
         @document = Nokogiri::XML(file)
         @aspects_path = aspects_path
         raise 'Error parsing input. Input is required to be KAF' unless is_kaf?
         @timestamp = timestamp
       end
-      
-      
+
+
       ##
       # Processes the input and returns the new KAF output.
       # @return [String]
@@ -26,25 +26,25 @@ module Opener
       def process
         @language = get_language
         @aspects  = load_aspects
-        @terms    = get_terms        
-        
+        @terms    = get_terms
+
         existing_aspects = extract_aspects
-        
+
         add_features_layer
         add_properties_layer
-        
+
         index = 1
-        
+
         existing_aspects.each_pair do |key,value|
           add_property(key, value, index)
           index += 1
         end
-        
+
         add_linguistic_processor
 
         return pretty_print(document)
       end
-      
+
       ##
       # Loads the aspects from the txt file
       # @return [Hash]
@@ -58,10 +58,10 @@ module Opener
             :aspect => aspect
           }
         end
-        
-        return aspects_hash        
+
+        return aspects_hash
       end
-      
+
       ##
       # Get the language of the input file.
       # @return [String]
@@ -69,7 +69,7 @@ module Opener
       def get_language
         document.root.attr('xml:lang')
       end
-      
+
       ##
       # Get the terms from the input file
       # @return [Hash]
@@ -79,10 +79,10 @@ module Opener
         document.at('terms').css('term').each do |term|
           terms_hash[term.attr('tid').to_sym] = term.attr('lemma')
         end
-        
+
         return terms_hash
       end
-      
+
       ##
       # Check which terms belong to an aspect (property)
       # @return [Hash]
@@ -90,12 +90,12 @@ module Opener
       def extract_aspects
         term_ids  = terms.keys
         lemmas    = terms.values
-        
+
         current_token = 0
-        # Use of n-grams to determine if a unigram (1 lemma) or bigram (2 
-        # lemmas) belong to a property. 
+        # Use of n-grams to determine if a unigram (1 lemma) or bigram (2
+        # lemmas) belong to a property.
         max_ngram = 2
-        
+
         uniq_aspects = {}
 
         while current_token < terms.count
@@ -112,10 +112,10 @@ module Opener
           end
           current_token += 1
         end
-        
+
         return Hash[uniq_aspects.sort]
       end
-      
+
       ##
       # Remove the features layer from the KAF file if it exists and add a new
       # one.
@@ -123,13 +123,13 @@ module Opener
         document.at('features').remove if document.at('features')
         new_node("features", "KAF")
       end
-      
+
       ##
       # Add the properties layer as a child to the features layer.
       def add_properties_layer
         new_node("properties", "features")
       end
-      
+
       def add_property(key, value, index)
         property_node = new_node("property", "properties")
         property_node['lemma'] = key.to_s
@@ -145,18 +145,18 @@ module Opener
           end
         end
       end
-      
+
       def add_linguistic_processor
         description = 'VUA property tagger'
         last_edited = '16jan2015'
         version     = '2.0'
-        
+
         node = new_node("linguisticProcessors", "kafHeader")
         node['layer'] = "features"
         lp_node = new_node("lp", node)
         lp_node['version'] = [last_edited, version].join("_")
         lp_node['name']    = description
-        
+
         if timestamp
           format = "%Y-%m-%dT%H:%M:%S%Z"
           lp_node['timestamp'] = Time.now.strftime(format)
@@ -164,7 +164,7 @@ module Opener
           lp_node['timestamp'] = "*"
         end
       end
-      
+
       ##
       # Format the output document properly.
       # Nokogiri isn't very good at that so we abuse REXML for that.
@@ -177,19 +177,19 @@ module Opener
         formatter = REXML::Formatters::Pretty.new
         formatter.compact = true
         formatter.write(doc, out)
-        
+
         return out
       end
-      
+
       protected
       def new_node(tag, parent)
         parent_node =  parent.kind_of?(String) ? document.at(parent) : parent
         node = Nokogiri::XML::Node.new tag, parent_node
         parent_node.add_child(node)
-        
+
         return node
       end
-      
+
       ##
       # Check if input is a KAF file.
       # @return [Boolean]
@@ -197,7 +197,7 @@ module Opener
       def is_kaf?
         !!document.at("KAF")
       end
-      
+
       def aspects_file
         File.expand_path("#{aspects_path}/#{language}.txt", __FILE__)
       end
