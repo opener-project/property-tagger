@@ -118,8 +118,6 @@ At least you need the following system setup:
 ### Depenencies for normal use:
 
 * Ruby 1.9.3 or newer
-* Python 2.6
-* lxml installed
 * libarchive (for running the tests and such), on Debian/Ubuntu based systems
   this can be installed using `sudo apt-get install libarchive-dev`
 
@@ -136,11 +134,6 @@ So, one aspect per line, with 3 fields separated by a tabulator, the first one
 is the word or span of words (in this case use whitespaces), then the part of
 speech (which actually it is not use, you can  include a dummy label) and
 finally the aspect class associated with the word.
-
-## The Core
-
-The component is a fat wrapper around the actual language technology core. You
-can find the core technolies (python) in the `/core` directory.
 
 ## Where to go from here
 
