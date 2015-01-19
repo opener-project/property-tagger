@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='UTF-8'?> 
 <KAF xml:lang="it" version="v1.opener">
   <kafHeader>
     <linguisticProcessors layer="text">
@@ -18,7 +18,7 @@
       <lp name="Manual annotations" version="1.0" timestamp="2014-04-08T16:30:25CEST"/>
     </linguisticProcessors>
     <linguisticProcessors layer="features">
-      <lp timestamp="*" version="20may2014_1.0" name="VUA property tagger"/>
+      <lp version="16jan2015-2.0" name="VUA property tagger" timestamp="*"/>
     </linguisticProcessors>
   </kafHeader>
   <text>
@@ -3119,43 +3119,23 @@
   </opinions>
   <features>
     <properties>
-      <property pid="p1" lemma="prijs">
+      <property lemma="fac" pid="p1">
         <references>
-          <!--prezzo-->
+          <!--pc-->
           <span>
-            <target id="t5"/>
-          </span>
-          <!--pagare-->
-          <span>
-            <target id="t66"/>
-          </span>
-          <!--gratuito-->
-          <span>
-            <target id="t84"/>
-          </span>
-          <!--cauzione-->
-          <span>
-            <target id="t125"/>
-          </span>
-          <!--spendere-->
-          <span>
-            <target id="t154"/>
+            <target id="t88"/>
           </span>
         </references>
       </property>
-      <property pid="p2" lemma="kam/law">
+      <property lemma="hyg" pid="p2">
         <references>
-          <!--notti-->
+          <!--pulizia-->
           <span>
-            <target id="t70"/>
-          </span>
-          <!--notte-->
-          <span>
-            <target id="t99"/>
+            <target id="t102"/>
           </span>
         </references>
       </property>
-      <property pid="p3" lemma="kam">
+      <property lemma="kam" pid="p3">
         <references>
           <!--cambio-->
           <span>
@@ -3171,23 +3151,27 @@
           </span>
         </references>
       </property>
-      <property pid="p4" lemma="hyg">
+      <property lemma="kam/fac" pid="p4">
         <references>
-          <!--pulizia-->
+          <!--wifi-->
           <span>
-            <target id="t102"/>
+            <target id="t83"/>
           </span>
         </references>
       </property>
-      <property pid="p5" lemma="rest">
+      <property lemma="kam/law" pid="p5">
         <references>
-          <!--bar-->
+          <!--notti-->
           <span>
-            <target id="t94"/>
+            <target id="t70"/>
+          </span>
+          <!--notte-->
+          <span>
+            <target id="t99"/>
           </span>
         </references>
       </property>
-      <property pid="p6" lemma="kam/ontb/rest">
+      <property lemma="kam/ontb/rest" pid="p6">
         <references>
           <!--the-->
           <span>
@@ -3195,15 +3179,7 @@
           </span>
         </references>
       </property>
-      <property pid="p7" lemma="pers">
-        <references>
-          <!--check-->
-          <span>
-            <target id="t118"/>
-          </span>
-        </references>
-      </property>
-      <property pid="p8" lemma="lig">
+      <property lemma="lig" pid="p7">
         <references>
           <!--centro-->
           <span>
@@ -3231,19 +3207,43 @@
           </span>
         </references>
       </property>
-      <property pid="p9" lemma="kam/fac">
+      <property lemma="pers" pid="p8">
         <references>
-          <!--wifi-->
+          <!--check-->
           <span>
-            <target id="t83"/>
+            <target id="t118"/>
           </span>
         </references>
       </property>
-      <property pid="p10" lemma="fac">
+      <property lemma="prijs" pid="p9">
         <references>
-          <!--pc-->
+          <!--prezzo-->
           <span>
-            <target id="t88"/>
+            <target id="t5"/>
+          </span>
+          <!--pagare-->
+          <span>
+            <target id="t66"/>
+          </span>
+          <!--gratuito-->
+          <span>
+            <target id="t84"/>
+          </span>
+          <!--cauzione-->
+          <span>
+            <target id="t125"/>
+          </span>
+          <!--spendere-->
+          <span>
+            <target id="t154"/>
+          </span>
+        </references>
+      </property>
+      <property lemma="rest" pid="p10">
+        <references>
+          <!--bar-->
+          <span>
+            <target id="t94"/>
           </span>
         </references>
       </property>

@@ -6,10 +6,11 @@ script: bundle exec rake
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq libarchive-dev
-  - sudo pip install lxml
 
 rvm:
   - 2.1
+  - 2.2
+  - jruby
 
 notifications:
   email:

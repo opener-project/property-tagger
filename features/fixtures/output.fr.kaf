@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='UTF-8'?> 
 <KAF version="2.0" xml:lang="fr">
   <kafHeader>
     <linguisticProcessors layer="text">
@@ -22,7 +22,7 @@
       <lp name="Manual annotations" version="1.0" timestamp="2014-04-08T16:29:19CEST"/>
     </linguisticProcessors>
     <linguisticProcessors layer="features">
-      <lp timestamp="*" version="20may2014_1.0" name="VUA property tagger"/>
+      <lp version="16jan2015-2.0" name="VUA property tagger" timestamp="*"/>
     </linguisticProcessors>
   </kafHeader>
   <text>
@@ -2918,23 +2918,7 @@
   </opinions>
   <features>
     <properties>
-      <property pid="p1" lemma="value_for_money">
-        <references>
-          <!--prix-->
-          <span>
-            <target id="t108"/>
-          </span>
-        </references>
-      </property>
-      <property pid="p2" lemma="noise">
-        <references>
-          <!--son-->
-          <span>
-            <target id="t11"/>
-          </span>
-        </references>
-      </property>
-      <property pid="p3" lemma="facilities">
+      <property lemma="facilities" pid="p1">
         <references>
           <!--plage-->
           <span>
@@ -2942,7 +2926,7 @@
           </span>
         </references>
       </property>
-      <property pid="p4" lemma="location">
+      <property lemma="location" pid="p2">
         <references>
           <!--situer-->
           <span>
@@ -2950,11 +2934,27 @@
           </span>
         </references>
       </property>
-      <property pid="p5" lemma="parking">
+      <property lemma="noise" pid="p3">
+        <references>
+          <!--son-->
+          <span>
+            <target id="t11"/>
+          </span>
+        </references>
+      </property>
+      <property lemma="parking" pid="p4">
         <references>
           <!--parc-->
           <span>
             <target id="t119"/>
+          </span>
+        </references>
+      </property>
+      <property lemma="value_for_money" pid="p5">
+        <references>
+          <!--prix-->
+          <span>
+            <target id="t108"/>
           </span>
         </references>
       </property>

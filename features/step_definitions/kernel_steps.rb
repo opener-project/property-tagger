@@ -15,8 +15,8 @@ Given /^I put it through the kernel$/ do
 end
 
 Then /^the output should match the fixture "(.*?)"$/ do |filename|
-  fixture_output = File.read(fixture_file(filename))
-  output         = File.read(@output)
+  fixture_output = File.read(fixture_file(filename)).strip
+  output         = File.read(@output).strip
 
   output.should eql(fixture_output)
 end

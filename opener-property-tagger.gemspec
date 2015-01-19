@@ -7,20 +7,15 @@ Gem::Specification.new do |gem|
   gem.summary     = 'Property tagger for hotels in Dutch and English.'
   gem.description = gem.summary
   gem.homepage    = 'http://opener-project.github.com/'
-  gem.extensions  = ['ext/hack/Rakefile']
 
   gem.license = 'Apache 2.0'
 
   gem.required_ruby_version = '>= 1.9.2'
 
   gem.files = Dir.glob([
-    'core/data/**/*',
-    'core/*.py',
-    'ext/**/*',
     'lib/**/*',
     'config.ru',
     '*.gemspec',
-    '*_requirements.txt',
     'README.md',
     'LICENSE.txt',
     'exec/**/*',
@@ -33,10 +28,9 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'opener-webservice', '~> 2.1'
   gem.add_dependency 'opener-core', '~> 2.2'
 
-  gem.add_dependency 'nokogiri'
-  gem.add_dependency 'rake'
-  gem.add_dependency 'cliver'
+  gem.add_dependency 'oga'
 
   gem.add_development_dependency 'rspec', '~> 3.0'
   gem.add_development_dependency 'cucumber'
+  gem.add_development_dependency 'rake'
 end

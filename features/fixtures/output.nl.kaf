@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='UTF-8'?> 
 <KAF xml:lang="nl">
   <kafHeader>
     <linguisticProcessors layer="text">
@@ -8,7 +8,7 @@
       <lp name="SentenceTokenizer" timestamp="2012-11-20T17:01:57CET" version="2.0"/>
     </linguisticProcessors>
     <linguisticProcessors layer="features">
-      <lp timestamp="*" version="20may2014_1.0" name="VUA property tagger"/>
+      <lp version="16jan2015-2.0" name="VUA property tagger" timestamp="*"/>
     </linguisticProcessors>
   </kafHeader>
   <text>
@@ -317,7 +317,7 @@
   </terms>
   <features>
     <properties>
-      <property pid="p1" lemma="cleanliness">
+      <property lemma="cleanliness" pid="p1">
         <references>
           <!--schoon-->
           <span>
@@ -325,7 +325,7 @@
           </span>
         </references>
       </property>
-      <property pid="p2" lemma="location">
+      <property lemma="location" pid="p2">
         <references>
           <!--hartje-->
           <span>
@@ -341,7 +341,7 @@
           </span>
         </references>
       </property>
-      <property pid="p3" lemma="staff">
+      <property lemma="staff" pid="p3">
         <references>
           <!--service-->
           <span>

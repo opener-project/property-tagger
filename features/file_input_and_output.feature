@@ -15,4 +15,3 @@ Feature: Using files as input and output
     | French   | input.fr.kaf | output.fr.kaf |
     | Italian  | input.it.kaf | output.it.kaf |
     | Spanish  | input.es.kaf | output.es.kaf |
-

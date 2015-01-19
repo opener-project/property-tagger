@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='UTF-8'?> 
 <KAF xml:lang="es" version="v1.opener">
   <kafHeader>
     <fileDesc/>
@@ -19,7 +19,7 @@
       <lp name="Manual annotations" version="1.0" timestamp="2014-04-10T10:50:12CEST"/>
     </linguisticProcessors>
     <linguisticProcessors layer="features">
-      <lp timestamp="*" version="20may2014_1.0" name="VUA property tagger"/>
+      <lp version="16jan2015-2.0" name="VUA property tagger" timestamp="*"/>
     </linguisticProcessors>
   </kafHeader>
   <text>
@@ -765,7 +765,7 @@
       </span>
     </term>
     <!--"-->
-    <term tid="t97" type="close" lemma="&quot;" pos="O" morphofeat="FW">
+    <term tid="t97" type="close" lemma="&amp;quot;" pos="O" morphofeat="FW">
       <span>
         <target id="w97"/>
       </span>
@@ -783,7 +783,7 @@
       </span>
     </term>
     <!--"-->
-    <term tid="t100" type="close" lemma="&quot;" pos="O" morphofeat="FW">
+    <term tid="t100" type="close" lemma="&amp;quot;" pos="O" morphofeat="FW">
       <span>
         <target id="w100"/>
       </span>
@@ -3030,7 +3030,7 @@
   </opinions>
   <features>
     <properties>
-      <property pid="p1" lemma="facilities">
+      <property lemma="facilities" pid="p1">
         <references>
           <!--masaje-->
           <span>
@@ -3038,7 +3038,7 @@
           </span>
         </references>
       </property>
-      <property pid="p2" lemma="restaurant">
+      <property lemma="restaurant" pid="p2">
         <references>
           <!--cena-->
           <span>
@@ -3046,7 +3046,7 @@
           </span>
         </references>
       </property>
-      <property pid="p3" lemma="room">
+      <property lemma="room" pid="p3">
         <references>
           <!--cajón-->
           <span>
@@ -3054,7 +3054,7 @@
           </span>
         </references>
       </property>
-      <property pid="p4" lemma="staff">
+      <property lemma="staff" pid="p4">
         <references>
           <!--personal-->
           <span>

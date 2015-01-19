@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='UTF-8'?> 
 <KAF xml:lang="de" version="v1.opener">
   <kafHeader>
     <fileDesc/>
@@ -22,7 +22,7 @@
       <lp name="Manual annotations" version="1.0" timestamp="2014-04-08T16:32:24CEST"/>
     </linguisticProcessors>
     <linguisticProcessors layer="features">
-      <lp timestamp="*" version="20may2014_1.0" name="VUA property tagger"/>
+      <lp version="16jan2015-2.0" name="VUA property tagger" timestamp="*"/>
     </linguisticProcessors>
   </kafHeader>
   <text>
@@ -1379,29 +1379,29 @@
   </opinions>
   <features>
     <properties>
-      <property pid="p1" lemma="room">
-        <references>
-          <!--Doppelzimmer-->
-          <span>
-            <target id="t33"/>
-          </span>
-        </references>
-      </property>
-      <property pid="p2" lemma="location">
+      <property lemma="location" pid="p1">
         <references>
           <!--direkt-->
           <span>
             <target id="t18"/>
           </span>
-          <!--Ausblick-->
+          <!--ausblick-->
           <span>
             <target id="t24"/>
           </span>
         </references>
       </property>
-      <property pid="p3" lemma="staff">
+      <property lemma="room" pid="p2">
         <references>
-          <!--Service-->
+          <!--doppelzimmer-->
+          <span>
+            <target id="t33"/>
+          </span>
+        </references>
+      </property>
+      <property lemma="staff" pid="p3">
+        <references>
+          <!--service-->
           <span>
             <target id="t6"/>
           </span>
@@ -1409,7 +1409,7 @@
           <span>
             <target id="t13"/>
           </span>
-          <!--Service-->
+          <!--service-->
           <span>
             <target id="t16"/>
           </span>
