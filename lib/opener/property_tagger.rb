@@ -1,5 +1,9 @@
 require 'open3'
 require 'slop'
+require 'oga'
+
+require 'rexml/document'
+require 'rexml/formatters/pretty'
 
 require_relative 'property_tagger/version'
 require_relative 'property_tagger/cli'
