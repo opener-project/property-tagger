@@ -145,7 +145,7 @@ module Opener
         references_node = new_node("references", property_node)
 
         value.uniq.each do |v|
-          comment = Oga::XML::Comment.new(:text => v.last)
+          comment = Oga::XML::Comment.new(:text => " #{v.last} ")
 
           references_node.children << comment
 
