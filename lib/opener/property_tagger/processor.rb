@@ -50,7 +50,7 @@ module Opener
 
         File.foreach(aspects_file) do |line|
           lemma, pos, aspect = line.gsub("\n", "").split("\t")
-          
+
           aspects_hash[lemma.to_sym] = [] unless aspects_hash[lemma.to_sym]
           aspects_hash[lemma.to_sym] << aspect
         end
@@ -98,11 +98,15 @@ module Opener
         while current_token < terms.count
           (0..max_ngram).each do |tam_ngram|
             if current_token + tam_ngram <= terms.count
-              ngram  = lemmas[current_token..current_token+tam_ngram].join(" ").downcase
+              ngram = lemmas[current_token..current_token+tam_ngram].join(" ").downcase
+
               if aspects[ngram.to_sym]
                 properties = aspects[ngram.to_sym]
-                ids    = term_ids[current_token..current_token+tam_ngram]
-                properties.uniq.reject{|p| p.gsub(" ", "").empty?}.each do |property|
+                ids        = term_ids[current_token..current_token+tam_ngram]
+
+                properties.uniq.each do |property|
+                  next if !property or property.strip.empty?
+
                   uniq_aspects[property.to_sym] = [] unless uniq_aspects[property.to_sym]
                   uniq_aspects[property.to_sym] << [ids,ngram]
                 end
