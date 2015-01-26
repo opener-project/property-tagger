@@ -54,8 +54,14 @@ Examples:
             abort "property-tagger v#{VERSION} on #{RUBY_DESCRIPTION}"
           end
 
+          on :'no-time', 'Disables adding of timestamps'
+
           run do |opts, args|
-            tagger = PropertyTagger.new(:args => args)
+            tagger = PropertyTagger.new(
+              :args    => args,
+              :no_time => opts[:'no-time']
+            )
+
             input  = STDIN.tty? ? nil : STDIN.read
 
             puts tagger.run(input)

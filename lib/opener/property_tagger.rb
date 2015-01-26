@@ -28,6 +28,8 @@ module Opener
     # @option options [Array] :args Collection of arbitrary arguments to pass
     #  to the underlying kernel.
     #
+    # @option options [TrueClass] :no_time Disables adding of timestamps.
+    #
     def initialize(options = {})
       @args    = options.delete(:args) || []
       @options = options
@@ -63,8 +65,10 @@ module Opener
     end
 
     protected
+
     def process(input)
-      processor = Opener::PropertyTagger::Processor.new(input, path, !args.include?("--no-time"))
+      processor = Processor.new(input, path, !options[:no_time])
+
       return processor.process
     end
   end # PolarityTagger

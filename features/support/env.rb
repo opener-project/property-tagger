@@ -2,7 +2,7 @@ require_relative '../../lib/opener/property_tagger'
 require 'rspec'
 
 def kernel
-  return Opener::PropertyTagger.new(:args => ['--no-time'])
+  return Opener::PropertyTagger.new(:no_time => true)
 end
 
 RSpec.configure do |config|
