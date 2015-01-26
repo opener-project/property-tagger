@@ -1381,11 +1381,11 @@
     <properties>
       <property lemma="location" pid="p1">
         <references>
-          <!--direkt-->
+          <!-- direkt -->
           <span>
             <target id="t18"/>
           </span>
-          <!--ausblick-->
+          <!-- ausblick -->
           <span>
             <target id="t24"/>
           </span>
@@ -1393,7 +1393,7 @@
       </property>
       <property lemma="room" pid="p2">
         <references>
-          <!--doppelzimmer-->
+          <!-- doppelzimmer -->
           <span>
             <target id="t33"/>
           </span>
@@ -1401,15 +1401,15 @@
       </property>
       <property lemma="staff" pid="p3">
         <references>
-          <!--service-->
+          <!-- service -->
           <span>
             <target id="t6"/>
           </span>
-          <!--professionell-->
+          <!-- professionell -->
           <span>
             <target id="t13"/>
           </span>
-          <!--service-->
+          <!-- service -->
           <span>
             <target id="t16"/>
           </span>

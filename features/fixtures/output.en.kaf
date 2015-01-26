@@ -140,7 +140,7 @@
     <properties>
       <property lemma="cleanliness" pid="p1">
         <references>
-          <!--dirty-->
+          <!-- dirty -->
           <span>
             <target id="t_12"/>
           </span>
@@ -148,7 +148,7 @@
       </property>
       <property lemma="sleeping_comfort" pid="p2">
         <references>
-          <!--bed-->
+          <!-- bed -->
           <span>
             <target id="t_10"/>
           </span>
@@ -156,11 +156,11 @@
       </property>
       <property lemma="staff" pid="p3">
         <references>
-          <!--staff-->
+          <!-- staff -->
           <span>
             <target id="t_16"/>
           </span>
-          <!--friendly-->
+          <!-- friendly -->
           <span>
             <target id="t_20"/>
           </span>

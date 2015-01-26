@@ -319,7 +319,7 @@
     <properties>
       <property lemma="cleanliness" pid="p1">
         <references>
-          <!--schoon-->
+          <!-- schoon -->
           <span>
             <target id="t_40"/>
           </span>
@@ -327,15 +327,15 @@
       </property>
       <property lemma="location" pid="p2">
         <references>
-          <!--hartje-->
+          <!-- hartje -->
           <span>
             <target id="t_6"/>
           </span>
-          <!--centrum-->
+          <!-- centrum -->
           <span>
             <target id="t_8"/>
           </span>
-          <!--loopafstand-->
+          <!-- loopafstand -->
           <span>
             <target id="t_21"/>
           </span>
@@ -343,11 +343,11 @@
       </property>
       <property lemma="staff" pid="p3">
         <references>
-          <!--service-->
+          <!-- service -->
           <span>
             <target id="t_46"/>
           </span>
-          <!--personeel-->
+          <!-- personeel -->
           <span>
             <target id="t_49"/>
           </span>

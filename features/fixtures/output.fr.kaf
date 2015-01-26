@@ -2920,7 +2920,7 @@
     <properties>
       <property lemma="facilities" pid="p1">
         <references>
-          <!--plage-->
+          <!-- plage -->
           <span>
             <target id="t135"/>
           </span>
@@ -2928,7 +2928,7 @@
       </property>
       <property lemma="location" pid="p2">
         <references>
-          <!--situer-->
+          <!-- situer -->
           <span>
             <target id="t96"/>
           </span>
@@ -2936,7 +2936,7 @@
       </property>
       <property lemma="noise" pid="p3">
         <references>
-          <!--son-->
+          <!-- son -->
           <span>
             <target id="t11"/>
           </span>
@@ -2944,7 +2944,7 @@
       </property>
       <property lemma="parking" pid="p4">
         <references>
-          <!--parc-->
+          <!-- parc -->
           <span>
             <target id="t119"/>
           </span>
@@ -2952,7 +2952,7 @@
       </property>
       <property lemma="value_for_money" pid="p5">
         <references>
-          <!--prix-->
+          <!-- prix -->
           <span>
             <target id="t108"/>
           </span>

@@ -3121,7 +3121,7 @@
     <properties>
       <property lemma="fac" pid="p1">
         <references>
-          <!--pc-->
+          <!-- pc -->
           <span>
             <target id="t88"/>
           </span>
@@ -3129,7 +3129,7 @@
       </property>
       <property lemma="hyg" pid="p2">
         <references>
-          <!--pulizia-->
+          <!-- pulizia -->
           <span>
             <target id="t102"/>
           </span>
@@ -3137,15 +3137,15 @@
       </property>
       <property lemma="kam" pid="p3">
         <references>
-          <!--cambio-->
+          <!-- cambio -->
           <span>
             <target id="t104"/>
           </span>
-          <!--stanza-->
+          <!-- stanza -->
           <span>
             <target id="t109"/>
           </span>
-          <!--grande-->
+          <!-- grande -->
           <span>
             <target id="t111"/>
           </span>
@@ -3153,7 +3153,7 @@
       </property>
       <property lemma="kam/fac" pid="p4">
         <references>
-          <!--wifi-->
+          <!-- wifi -->
           <span>
             <target id="t83"/>
           </span>
@@ -3161,11 +3161,11 @@
       </property>
       <property lemma="kam/law" pid="p5">
         <references>
-          <!--notti-->
+          <!-- notti -->
           <span>
             <target id="t70"/>
           </span>
-          <!--notte-->
+          <!-- notte -->
           <span>
             <target id="t99"/>
           </span>
@@ -3173,7 +3173,7 @@
       </property>
       <property lemma="kam/ontb/rest" pid="p6">
         <references>
-          <!--the-->
+          <!-- the -->
           <span>
             <target id="t34"/>
           </span>
@@ -3181,27 +3181,27 @@
       </property>
       <property lemma="lig" pid="p7">
         <references>
-          <!--centro-->
+          <!-- centro -->
           <span>
             <target id="t30"/>
           </span>
-          <!--commerciale-->
+          <!-- commerciale -->
           <span>
             <target id="t31"/>
           </span>
-          <!--raggiungere-->
+          <!-- raggiungere -->
           <span>
             <target id="t37"/>
           </span>
-          <!--fermata-->
+          <!-- fermata -->
           <span>
             <target id="t56"/>
           </span>
-          <!--metro-->
+          <!-- metro -->
           <span>
             <target id="t60"/>
           </span>
-          <!--station-->
+          <!-- station -->
           <span>
             <target id="t61"/>
           </span>
@@ -3209,7 +3209,7 @@
       </property>
       <property lemma="pers" pid="p8">
         <references>
-          <!--check-->
+          <!-- check -->
           <span>
             <target id="t118"/>
           </span>
@@ -3217,23 +3217,23 @@
       </property>
       <property lemma="prijs" pid="p9">
         <references>
-          <!--prezzo-->
+          <!-- prezzo -->
           <span>
             <target id="t5"/>
           </span>
-          <!--pagare-->
+          <!-- pagare -->
           <span>
             <target id="t66"/>
           </span>
-          <!--gratuito-->
+          <!-- gratuito -->
           <span>
             <target id="t84"/>
           </span>
-          <!--cauzione-->
+          <!-- cauzione -->
           <span>
             <target id="t125"/>
           </span>
-          <!--spendere-->
+          <!-- spendere -->
           <span>
             <target id="t154"/>
           </span>
@@ -3241,7 +3241,7 @@
       </property>
       <property lemma="rest" pid="p10">
         <references>
-          <!--bar-->
+          <!-- bar -->
           <span>
             <target id="t94"/>
           </span>

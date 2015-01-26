@@ -3032,7 +3032,7 @@
     <properties>
       <property lemma="facilities" pid="p1">
         <references>
-          <!--masaje-->
+          <!-- masaje -->
           <span>
             <target id="t102"/>
           </span>
@@ -3040,7 +3040,7 @@
       </property>
       <property lemma="restaurant" pid="p2">
         <references>
-          <!--cena-->
+          <!-- cena -->
           <span>
             <target id="t106"/>
           </span>
@@ -3048,7 +3048,7 @@
       </property>
       <property lemma="room" pid="p3">
         <references>
-          <!--cajón-->
+          <!-- cajón -->
           <span>
             <target id="t83"/>
           </span>
@@ -3056,11 +3056,11 @@
       </property>
       <property lemma="staff" pid="p4">
         <references>
-          <!--personal-->
+          <!-- personal -->
           <span>
             <target id="t56"/>
           </span>
-          <!--gerente-->
+          <!-- gerente -->
           <span>
             <target id="t61"/>
           </span>
