@@ -15,8 +15,13 @@ OptionParser.new do |opts|
     options[:output] = o
   end
 
-  opts.on("--append", "Appends the generated lexicons to the existing output") do |a|
+  opts.on("--append [OPT]", "Appends the generated lexicons to the existing output") do |a|
     options[:append] = a
+  end
+
+  opts.on("-h", "--help", "Display this screen") do
+    puts opts
+    exit
   end
 end.parse!
 
