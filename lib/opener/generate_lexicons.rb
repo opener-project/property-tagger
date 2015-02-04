@@ -3,9 +3,8 @@ require 'csv'
 
 options  = {}
 lexicons = []
-file     = nil
 OptionParser.new do |opts|
-  opts.banner = "Usage: import_lexicons.rb [options]"
+  opts.banner = "Usage: generate_lexicons.rb [options]"
 
   opts.on("-i", "--input FILE", "Input FILE") do |i|
     options[:input] = i
@@ -15,7 +14,7 @@ OptionParser.new do |opts|
     options[:output] = o
   end
 
-  opts.on("--append [OPT]", "Appends the generated lexicons to the existing output") do |a|
+  opts.on("--append", "Appends the generated lexicons to the existing output") do |a|
     options[:append] = a
   end
 
@@ -28,7 +27,7 @@ end.parse!
 def write_to_file(file, lexicons, option)
   File.open(file, option) do |file|
     lexicons.each do |lexicon|
-      file.write "#{lexicon.join('\t')}\n"
+      file.write "#{lexicon.join("\t")}\n"
     end
   end
 end
