@@ -1,0 +1,49 @@
+module Opener
+  class PropertyTagger
+    ##
+    # Thread-safe cache for storing the contents of aspect files.
+    #
+    class AspectsCache
+      include MonitorMixin
+
+      def initialize
+        super
+
+        @cache = {}
+      end
+
+      ##
+      # Returns the aspects for the given file path. If the aspects don't exist
+      # they are first loaded into the cache.
+      #
+      # @param [String] path
+      #
+      def [](path)
+        synchronize do
+          @cache[path] = load_aspects(path) unless @cache.key?(path)
+        end
+
+        return @cache[path]
+      end
+
+      alias_method :get, :[]
+
+      ##
+      # Loads the aspects of the given path.
+      #
+      # @param [String] path
+      #
+      def load_aspects(path)
+        mapping = Hash.new { |hash, key| hash[key] = [] }
+
+        File.foreach(path) do |line|
+          lemma, pos, aspect = line.chomp.split("\t")
+
+          mapping[lemma.to_sym] << aspect
+        end
+
+        return mapping
+      end
+    end # AspectsCache
+  end # PropertyTagger
+end # Opener

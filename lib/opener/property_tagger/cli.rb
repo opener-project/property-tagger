@@ -56,10 +56,13 @@ Examples:
 
           on :'no-time', 'Disables adding of timestamps'
 
+          on :ugly, 'Disables pretty formatting of XML (faster)'
+
           run do |opts, args|
             tagger = PropertyTagger.new(
               :args    => args,
-              :no_time => opts[:'no-time']
+              :no_time => opts[:'no-time'],
+              :pretty  => !opts[:ugly]
             )
 
             input  = STDIN.tty? ? nil : STDIN.read

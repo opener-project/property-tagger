@@ -1,12 +1,14 @@
 require 'open3'
 require 'slop'
 require 'oga'
+require 'monitor'
 
 require 'rexml/document'
 require 'rexml/formatters/pretty'
 
 require_relative 'property_tagger/version'
 require_relative 'property_tagger/cli'
+require_relative 'property_tagger/aspects_cache'
 require_relative 'property_tagger/processor'
 
 module Opener
@@ -52,24 +54,15 @@ module Opener
     end
 
     ##
-    # Processes the input and returns an Array containing the output of STDOUT,
-    # STDERR and an object containing process information.
+    # Processes the input KAF document.
     #
-    # @param [String] input The text of which to detect the language.
-    # @return [Array]
+    # @param [String] input
+    # @return [String]
     #
     def run(input)
-      output = process(input)
+      timestamp = !options[:no_time]
 
-      return output
-    end
-
-    protected
-
-    def process(input)
-      processor = Processor.new(input, path, !options[:no_time])
-
-      return processor.process
+      return Processor.new(input, path, timestamp, options[:pretty]).process
     end
   end # PolarityTagger
 end # Opener

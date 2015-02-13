@@ -4,13 +4,27 @@ module Opener
     # Class that applies property tagging to a given input KAF file.
     #
     class Processor
-      attr_accessor :document, :aspects_path, :language, :aspects, :terms,
-        :timestamp
+      attr_accessor :document, :aspects_path, :timestamp, :pretty
 
-      def initialize(file, aspects_path, timestamp = true)
+      ##
+      # Global cache used for storing loaded aspects.
+      #
+      # @return [Opener::PropertyTagger::AspectsCache.new]
+      #
+      ASPECTS_CACHE = AspectsCache.new
+
+      ##
+      # @param [String|IO] file The KAF file/input to process.
+      # @param [String] aspects_path Path to the aspects.
+      # @param [TrueClass|FalseClass] timestamp Add timestamps to the KAF.
+      # @param [TrueClass|FalseClass] pretty Enable pretty formatting, disabled
+      #  by default due to the performance overhead.
+      #
+      def initialize(file, aspects_path, timestamp = true, pretty = false)
         @document     = Oga.parse_xml(file)
         @aspects_path = aspects_path
         @timestamp    = timestamp
+        @pretty       = pretty
 
         raise 'Error parsing input. Input is required to be KAF' unless is_kaf?
       end
@@ -20,64 +34,52 @@ module Opener
       # @return [String]
       #
       def process
-        @language = get_language
-        @aspects  = load_aspects
-        @terms    = get_terms
-
         existing_aspects = extract_aspects
 
         add_features_layer
         add_properties_layer
 
-        index = 1
-
-        existing_aspects.each_pair do |key,value|
-          add_property(key, value, index)
+        existing_aspects.each_with_index do |(key, value), index|
           index += 1
+
+          add_property(key, value, index)
         end
 
         add_linguistic_processor
 
-        return pretty_print(document)
+        return pretty ? pretty_print(document) : document.to_xml
       end
 
       ##
-      # Loads the aspects from the txt file
       # @return [Hash]
       #
-      def load_aspects
-        aspects_hash = {}
-
-        File.foreach(aspects_file) do |line|
-          lemma, pos, aspect = line.gsub("\n", "").split("\t")
-
-          aspects_hash[lemma.to_sym] = [] unless aspects_hash[lemma.to_sym]
-          aspects_hash[lemma.to_sym] << aspect
-        end
-
-        return aspects_hash
+      def aspects
+        return ASPECTS_CACHE[aspects_file]
       end
 
       ##
       # Get the language of the input file.
+      #
       # @return [String]
       #
-      def get_language
-        document.at_xpath('KAF').get('xml:lang')
+      def language
+        return @language ||= document.at_xpath('KAF').get('xml:lang')
       end
 
       ##
       # Get the terms from the input file
       # @return [Hash]
       #
-      def get_terms
-        terms_hash = {}
+      def terms
+        unless @terms
+          @terms = {}
 
-        document.xpath('KAF/terms/term').each do |term|
-          terms_hash[term.get('tid').to_sym] = term.get('lemma')
+          document.xpath('KAF/terms/term').each do |term|
+            @terms[term.get('tid').to_sym] = term.get('lemma')
+          end
         end
 
-        return terms_hash
+        return @terms
       end
 
       ##
@@ -93,7 +95,7 @@ module Opener
         # lemmas) belong to a property.
         max_ngram = 2
 
-        uniq_aspects = {}
+        uniq_aspects = Hash.new { |hash, key| hash[key] = [] }
 
         while current_token < terms.count
           (0..max_ngram).each do |tam_ngram|
@@ -107,7 +109,6 @@ module Opener
                 properties.uniq.each do |property|
                   next if !property or property.strip.empty?
 
-                  uniq_aspects[property.to_sym] = [] unless uniq_aspects[property.to_sym]
                   uniq_aspects[property.to_sym] << [ids,ngram]
                 end
               end
@@ -223,8 +224,12 @@ module Opener
         return !!document.at_xpath('KAF')
       end
 
+      ##
+      # @return [String]
+      #
       def aspects_file
-        return File.expand_path("#{aspects_path}/#{language}.txt", __FILE__)
+        return @aspects_file ||=
+          File.expand_path("#{aspects_path}/#{language}.txt", __FILE__)
       end
     end # Processor
   end # PropertyTagger
