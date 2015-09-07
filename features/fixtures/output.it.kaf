@@ -504,7 +504,7 @@
       </span>
     </term>
     <!--più-->
-    <term tid="t53" type="" lemma="piu'" pos="N" morphofeat="NOU~CAMI">
+    <term tid="t53" type="" lemma="piu&apos;" pos="N" morphofeat="NOU~CAMI">
       <sentiment resource="CRN_general_lexicon_italian" sentiment_modifier="intensifier"/>
       <span>
         <target id="w53"/>
@@ -661,7 +661,7 @@
       </span>
     </term>
     <!--dell'-->
-    <term tid="t78" type="" lemma="dell'" pos="P" morphofeat="PREPNS">
+    <term tid="t78" type="" lemma="dell&apos;" pos="P" morphofeat="PREPNS">
       <span>
         <target id="w78"/>
       </span>
