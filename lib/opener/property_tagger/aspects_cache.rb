@@ -22,8 +22,6 @@ module Opener
         synchronize do
           @cache[path] = load_aspects(path) unless @cache.key?(path)
         end
-
-        return @cache[path]
       end
 
       alias_method :get, :[]

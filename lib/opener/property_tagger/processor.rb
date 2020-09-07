@@ -4,7 +4,10 @@ module Opener
     # Class that applies property tagging to a given input KAF file.
     #
     class Processor
-      attr_accessor :document, :aspects_path, :timestamp, :pretty
+
+      attr_accessor :document
+      attr_accessor :aspects, :aspects_path, :aspects_url
+      attr_accessor :timestamp, :pretty
 
       ##
       # Global cache used for storing loaded aspects.
@@ -12,6 +15,7 @@ module Opener
       # @return [Opener::PropertyTagger::AspectsCache.new]
       #
       ASPECTS_CACHE = AspectsCache.new
+      REMOTE_ASPECTS_CACHE = RemoteAspectsCache.new
 
       ##
       # @param [String|IO] file The KAF file/input to process.
@@ -20,13 +24,17 @@ module Opener
       # @param [TrueClass|FalseClass] pretty Enable pretty formatting, disabled
       #  by default due to the performance overhead.
       #
-      def initialize(file, aspects_path, timestamp = true, pretty = false)
+      def initialize file, url: nil, path: nil, timestamp: true, pretty: false
         @document     = Oga.parse_xml(file)
-        @aspects_path = aspects_path
+        raise 'Error parsing input. Input is required to be KAF' unless is_kaf?
         @timestamp    = timestamp
         @pretty       = pretty
 
-        raise 'Error parsing input. Input is required to be KAF' unless is_kaf?
+        @remote       = !url.nil?
+        @aspects_path = aspects_path
+        @aspects_url  = aspects_url
+
+        @aspects = if @remote then REMOTE_ASPECTS_CACHE[language] else ASPECTS_CACHE[aspects_file] end
       end
 
       ##
@@ -48,13 +56,6 @@ module Opener
         add_linguistic_processor
 
         return pretty ? pretty_print(document) : document.to_xml
-      end
-
-      ##
-      # @return [Hash]
-      #
-      def aspects
-        return ASPECTS_CACHE[aspects_file]
       end
 
       ##
@@ -231,6 +232,7 @@ module Opener
         return @aspects_file ||=
           File.expand_path("#{aspects_path}/#{language}.txt", __FILE__)
       end
-    end # Processor
-  end # PropertyTagger
-end # Opener
+
+    end
+  end
+end

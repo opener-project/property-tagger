@@ -2,6 +2,9 @@ require 'open3'
 require 'slop'
 require 'oga'
 require 'monitor'
+require 'httpclient'
+require 'hashie'
+require 'json'
 
 require 'rexml/document'
 require 'rexml/formatters/pretty'
@@ -9,6 +12,7 @@ require 'rexml/formatters/pretty'
 require_relative 'property_tagger/version'
 require_relative 'property_tagger/cli'
 require_relative 'property_tagger/aspects_cache'
+require_relative 'property_tagger/remote_aspects_cache'
 require_relative 'property_tagger/processor'
 
 module Opener
@@ -43,14 +47,20 @@ module Opener
     # @return [String]
     #
     def path
-      path = options[:resource_path] || ENV['RESOURCE_PATH'] ||
+      return @path if @path
+
+      @path = options[:resource_path] || ENV['RESOURCE_PATH'] ||
         ENV['PROPERTY_TAGGER_LEXICONS_PATH']
 
-      unless path
+      unless @path
         raise ArgumentError, 'No lexicon path provided'
       end
 
-      return File.expand_path(path)
+      @path = File.expand_path @path
+    end
+
+    def remote_url
+      @remote_url ||= ENV['PROPERTY_TAGGER_LEXICONS_URL']
     end
 
     ##
@@ -59,11 +69,17 @@ module Opener
     # @param [String] input
     # @return [String]
     #
-    def run(input)
+    def run input
       timestamp = !options[:no_time]
 
-      return Processor.new(input, path, timestamp, options[:pretty]).process
+      Processor.new(input,
+        url:       remote_url,
+        path:      path,
+        timestamp: timestamp,
+        pretty:    options[:pretty],
+      ).process
     end
-  end # PolarityTagger
-end # Opener
+
+  end
+end
 

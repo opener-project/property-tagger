@@ -24,13 +24,13 @@ Gem::Specification.new do |gem|
 
   gem.executables = Dir.glob('bin/*').map { |file| File.basename(file) }
 
-  gem.add_dependency 'newrelic_rpm', '~> 3.0'
-
   gem.add_dependency 'opener-daemons', '~> 2.2'
   gem.add_dependency 'opener-webservice', '~> 2.1'
   gem.add_dependency 'opener-core', '~> 2.2'
 
   gem.add_dependency 'oga', ['~> 1.0', '>= 1.3.1']
+  gem.add_dependency 'httpclient'
+  gem.add_dependency 'hashie'
 
   gem.add_development_dependency 'rspec', '~> 3.0'
   gem.add_development_dependency 'cucumber'
