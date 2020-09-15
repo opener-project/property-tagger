@@ -28,7 +28,6 @@ module Opener
         lexicons = lexicons['data'].map{ |l| Hashie::Mash.new l }
 
         lexicons.each do |l|
-          next unless l.lemma
           mapping[l.lemma.to_sym] << l.aspect
         end
 

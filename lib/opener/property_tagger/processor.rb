@@ -14,7 +14,7 @@ module Opener
       #
       # @return [Opener::PropertyTagger::AspectsCache.new]
       #
-      ASPECTS_CACHE = AspectsCache.new
+      ASPECTS_CACHE        = AspectsCache.new
       REMOTE_ASPECTS_CACHE = RemoteAspectsCache.new
 
       ##
@@ -25,14 +25,14 @@ module Opener
       #  by default due to the performance overhead.
       #
       def initialize file, url: nil, path: nil, timestamp: true, pretty: false
-        @document     = Oga.parse_xml(file)
+        @document     = Oga.parse_xml file
         raise 'Error parsing input. Input is required to be KAF' unless is_kaf?
         @timestamp    = timestamp
         @pretty       = pretty
 
         @remote       = !url.nil?
-        @aspects_path = aspects_path
-        @aspects_url  = aspects_url
+        @aspects_path = path
+        @aspects_url  = url
 
         @aspects = if @remote then REMOTE_ASPECTS_CACHE[language] else ASPECTS_CACHE[aspects_file] end
       end
@@ -229,8 +229,7 @@ module Opener
       # @return [String]
       #
       def aspects_file
-        return @aspects_file ||=
-          File.expand_path("#{aspects_path}/#{language}.txt", __FILE__)
+        @aspects_file ||= File.expand_path "#{aspects_path}/#{language}.txt", __FILE__
       end
 
     end
