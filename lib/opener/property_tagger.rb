@@ -51,10 +51,7 @@ module Opener
 
       @path = options[:resource_path] || ENV['RESOURCE_PATH'] ||
         ENV['PROPERTY_TAGGER_LEXICONS_PATH']
-
-      unless @path
-        raise ArgumentError, 'No lexicon path provided'
-      end
+      return unless @path
 
       @path = File.expand_path @path
     end
