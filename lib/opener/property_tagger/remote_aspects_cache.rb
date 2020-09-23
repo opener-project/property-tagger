@@ -26,6 +26,7 @@ module Opener
         url      = "#{@url}&language_code=#{lang}"
         lexicons = JSON.parse HTTPClient.new.get(url).body
         lexicons = lexicons['data'].map{ |l| Hashie::Mash.new l }
+        puts "#{lang}: loaded aspects from #{url}"
 
         lexicons.each do |l|
           mapping[l.lemma.to_sym] << l.aspect
