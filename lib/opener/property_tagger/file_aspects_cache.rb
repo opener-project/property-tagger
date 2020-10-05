@@ -3,7 +3,8 @@ module Opener
     ##
     # Thread-safe cache for storing the contents of aspect files.
     #
-    class AspectsCache
+    class FileAspectsCache
+
       include MonitorMixin
 
       def initialize
@@ -42,6 +43,7 @@ module Opener
 
         return mapping
       end
-    end # AspectsCache
-  end # PropertyTagger
-end # Opener
+
+    end
+  end
+end

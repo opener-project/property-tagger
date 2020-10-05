@@ -31,6 +31,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'oga', ['~> 1.0', '>= 1.3.1']
   gem.add_dependency 'httpclient'
   gem.add_dependency 'hashie'
+  gem.add_dependency 'activesupport'
 
   gem.add_development_dependency 'rspec', '~> 3.0'
   gem.add_development_dependency 'cucumber'

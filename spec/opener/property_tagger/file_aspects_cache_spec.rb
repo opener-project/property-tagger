@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Opener::PropertyTagger::AspectsCache do
+describe Opener::PropertyTagger::FileAspectsCache do
   before do
     @cache = described_class.new
     @path  = File.expand_path('../../../../tmp/lexicons/hotel/en.txt', __FILE__)

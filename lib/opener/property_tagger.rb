@@ -5,14 +5,15 @@ require 'monitor'
 require 'httpclient'
 require 'hashie'
 require 'json'
+require 'active_support/all'
 
 require 'rexml/document'
 require 'rexml/formatters/pretty'
 
 require_relative 'property_tagger/version'
 require_relative 'property_tagger/cli'
-require_relative 'property_tagger/aspects_cache'
 require_relative 'property_tagger/remote_aspects_cache'
+require_relative 'property_tagger/file_aspects_cache'
 require_relative 'property_tagger/processor'
 
 module Opener
@@ -66,10 +67,11 @@ module Opener
     # @param [String] input
     # @return [String]
     #
-    def run input
+    def run input, params = {}
       timestamp = !options[:no_time]
 
       Processor.new(input,
+        params:    params,
         url:       remote_url,
         path:      path,
         timestamp: timestamp,

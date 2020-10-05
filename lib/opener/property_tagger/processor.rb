@@ -12,9 +12,9 @@ module Opener
       ##
       # Global cache used for storing loaded aspects.
       #
-      # @return [Opener::PropertyTagger::AspectsCache.new]
+      # @return [Opener::PropertyTagger::FileAspectsCache.new]
       #
-      ASPECTS_CACHE        = AspectsCache.new
+      FILE_ASPECTS_CACHE   = FileAspectsCache.new
       REMOTE_ASPECTS_CACHE = RemoteAspectsCache.new
 
       ##
@@ -24,17 +24,19 @@ module Opener
       # @param [TrueClass|FalseClass] pretty Enable pretty formatting, disabled
       #  by default due to the performance overhead.
       #
-      def initialize file, url: nil, path: nil, timestamp: true, pretty: false
+      def initialize file, params: {}, url: nil, path: nil, timestamp: true, pretty: false
         @document     = Oga.parse_xml file
         raise 'Error parsing input. Input is required to be KAF' unless is_kaf?
         @timestamp    = timestamp
         @pretty       = pretty
 
+        @params       = params
+        @cache_keys   = params[:cache_keys] || {lang: language}
         @remote       = !url.nil?
         @aspects_path = path
         @aspects_url  = url
 
-        @aspects = if @remote then REMOTE_ASPECTS_CACHE[language] else ASPECTS_CACHE[aspects_file] end
+        @aspects = if @remote then REMOTE_ASPECTS_CACHE[**@cache_keys].aspects else FILE_ASPECTS_CACHE[aspects_file] end
       end
 
       ##

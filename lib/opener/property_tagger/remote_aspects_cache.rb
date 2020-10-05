@@ -14,16 +14,25 @@ module Opener
         @cache = {}
       end
 
-      def [] lang
+      def [] **params
         synchronize do
-          @cache[lang] ||= load_aspects lang
+          existing = @cache[params]
+          lexicons = load_aspects cache: existing, **params
+
+          @cache[params] = if lexicons.blank? then existing else
+            Hashie::Mash.new(
+              aspects: lexicons,
+              from:    Time.now,
+            )
+          end
         end
       end
       alias_method :get, :[]
 
-      def load_aspects lang
+      def load_aspects lang:, cache:, **params
         mapping  = Hash.new{ |hash, key| hash[key] = [] }
-        url      = "#{@url}&language_code=#{lang}"
+        url      = "#{@url}&language_code=#{lang}&#{params.to_query}"
+        url     += "&if_updated_since=#{cache.from.iso8601}" if cache
         lexicons = JSON.parse HTTPClient.new.get(url).body
         lexicons = lexicons['data'].map{ |l| Hashie::Mash.new l }
         puts "#{lang}: loaded aspects from #{url}"
