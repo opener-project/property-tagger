@@ -7,6 +7,8 @@ module Opener
 
       include MonitorMixin
 
+      UPDATE_INTERVAL = (ENV['CACHE_EXPIRE_MINS']&.to_i || 5).minutes
+
       def initialize
         super
 
@@ -16,13 +18,9 @@ module Opener
 
       def [] **params
         synchronize do
-          if existing = @cache[params]
-            existing.tap do
-              Thread.new{ @cache[params] = cache_update existing, **params }
-            end
-          else
-            @cache[params] = cache_update **params
-          end
+          existing = @cache[params]
+          break existing if existing and existing.from > UPDATE_INTERVAL.ago
+          @cache[params] = cache_update existing, **params
         end
       end
       alias_method :get, :[]
@@ -31,7 +29,11 @@ module Opener
         from     = Time.now
         lexicons = load_aspects cache: existing, **params
 
-        return existing if existing and lexicons.blank?
+        if existing and lexicons.blank?
+          existing.from = from
+          return existing
+        end
+
         Hashie::Mash.new(
           aspects: lexicons,
           from:    from,
