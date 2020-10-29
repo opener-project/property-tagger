@@ -8,8 +8,7 @@ before_install:
   - sudo apt-get install -qq libarchive-dev
 
 rvm:
-  - 2.1
-  - 2.2
+  - 2.3
   - jruby-9.2.7.0
 
 notifications:
