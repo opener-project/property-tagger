@@ -41,8 +41,8 @@ module Opener
       end
 
       def load_aspects lang:, cache:, **params
-        url      = "#{@url}&language_code=#{lang}&#{params.to_query}"
-        url     += "&if_updated_since=#{cache.from.iso8601}" if cache
+        url  = "#{@url}&language_code=#{lang}&#{params.to_query}"
+        url += "&if_updated_since=#{cache.from.utc.iso8601}" if cache
         puts "#{lang}: loading aspects from #{url}"
 
         lexicons = JSON.parse HTTPClient.new.get(url).body
