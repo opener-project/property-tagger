@@ -28,7 +28,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'opener-webservice', '~> 2.1'
   gem.add_dependency 'opener-core', '~> 2.2'
 
-  gem.add_dependency 'oga', ['~> 1.0', '>= 1.3.1']
+  gem.add_dependency 'nokogiri'
   gem.add_dependency 'httpclient'
   gem.add_dependency 'hashie'
   gem.add_dependency 'activesupport'

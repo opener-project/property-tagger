@@ -25,7 +25,7 @@ module Opener
       #  by default due to the performance overhead.
       #
       def initialize file, params: {}, url: nil, path: nil, timestamp: true, pretty: false
-        @document     = Oga.parse_xml file
+        @document     = Nokogiri.XML file
         raise 'Error parsing input. Input is required to be KAF' unless is_kaf?
         @timestamp    = timestamp
         @pretty       = pretty
@@ -60,25 +60,16 @@ module Opener
         return pretty ? pretty_print(document) : document.to_xml
       end
 
-      ##
-      # Get the language of the input file.
-      #
-      # @return [String]
-      #
       def language
-        return @language ||= document.at_xpath('KAF').get('xml:lang')
+        return @language ||= document.at_xpath('KAF').attr('xml:lang')
       end
 
-      ##
-      # Get the terms from the input file
-      # @return [Hash]
-      #
       def terms
         unless @terms
           @terms = {}
 
           document.xpath('KAF/terms/term').each do |term|
-            @terms[term.get('tid').to_sym] = term.get('lemma')
+            @terms[term.attr('tid').to_sym] = term.attr('lemma')
           end
         end
 
@@ -143,22 +134,21 @@ module Opener
       def add_property(key, value, index)
         property_node = new_node("property", "KAF/features/properties")
 
-        property_node.set('lemma', key.to_s)
-        property_node.set('pid', "p#{index.to_s}")
+        property_node['lemma'] = key.to_s
+        property_node['pid']   = "p#{index.to_s}"
 
         references_node = new_node("references", property_node)
 
         value.uniq.each do |v|
-          comment = Oga::XML::Comment.new(:text => " #{v.last} ")
-
-          references_node.children << comment
+          comm_node = Nokogiri::XML::Comment.new(references_node, " #{v.last} ")
+          references_node.add_child comm_node
 
           span_node = new_node("span", references_node)
 
           v.first.each do |val|
-            target_node = new_node("target", span_node)
+            target_node       = new_node("target", span_node)
 
-            target_node.set('id', val.to_s)
+            target_node['id'] = val.to_s
           end
         end
       end
@@ -169,19 +159,19 @@ module Opener
         version     = '2.0'
 
         node = new_node('linguisticProcessors', 'KAF/kafHeader')
-        node.set('layer', 'features')
+        node['layer'] = 'features'
 
         lp_node = new_node('lp', node)
 
-        lp_node.set('version', "#{last_edited}-#{version}")
-        lp_node.set('name', description)
+        lp_node['version'] = "#{last_edited}-#{version}"
+        lp_node['name']    = description
 
         if timestamp
           format = '%Y-%m-%dT%H:%M:%S%Z'
 
-          lp_node.set('timestamp', Time.now.strftime(format))
+          lp_node['timestamp'] = Time.now.strftime(format)
         else
-          lp_node.set('timestamp', '*')
+          lp_node['timestamp'] = '*'
         end
       end
 
@@ -212,9 +202,9 @@ module Opener
           parent_node = parent
         end
 
-        node = Oga::XML::Element.new(:name => tag)
+        node = Nokogiri::XML::Element.new(tag, document)
 
-        parent_node.children << node
+        parent_node.add_child node
 
         return node
       end

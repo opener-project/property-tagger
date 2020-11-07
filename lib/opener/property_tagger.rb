@@ -1,6 +1,6 @@
 require 'open3'
 require 'slop'
-require 'oga'
+require 'nokogiri'
 require 'monitor'
 require 'httpclient'
 require 'hashie'
