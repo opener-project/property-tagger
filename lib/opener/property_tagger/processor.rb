@@ -57,11 +57,11 @@ module Opener
 
         add_linguistic_processor
 
-        return pretty ? pretty_print(document) : document.to_xml
+        pretty ? pretty_print(document) : document.to_xml
       end
 
       def language
-        return @language ||= document.at_xpath('KAF').attr('xml:lang')
+        @language ||= document.at_xpath('KAF').attr('xml:lang')
       end
 
       def terms
@@ -73,7 +73,7 @@ module Opener
           end
         end
 
-        return @terms
+        @terms
       end
 
       ##
@@ -111,7 +111,7 @@ module Opener
           current_token += 1
         end
 
-        return Hash[uniq_aspects.sort]
+        Hash[uniq_aspects.sort]
       end
 
       ##
@@ -190,7 +190,7 @@ module Opener
         formatter.compact = true
         formatter.write(doc, out)
 
-        return out.strip
+        out.strip
       end
 
       protected
@@ -206,7 +206,7 @@ module Opener
 
         parent_node.add_child node
 
-        return node
+        node
       end
 
       ##
@@ -214,7 +214,7 @@ module Opener
       # @return [Boolean]
       #
       def is_kaf?
-        return !!document.at_xpath('KAF')
+        !!document.at_xpath('KAF')
       end
 
       ##
