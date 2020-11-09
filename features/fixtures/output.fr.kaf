@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?> 
+<?xml version='1.0' encoding='UTF-8'?>
 <KAF version="2.0" xml:lang="fr">
   <kafHeader>
     <linguisticProcessors layer="text">
@@ -196,7 +196,7 @@
       </span>
       <sentiment polarity="negative" resource="Vicomtech_general_lexicon_french"/>
     </term>
-    <term lemma="J&apos;" morphofeat="CL1ms" pos="Q" tid="t4" type="close">
+    <term lemma="J'" morphofeat="CL1ms" pos="Q" tid="t4" type="close">
       <span>
         <target id="w4"/>
       </span>
