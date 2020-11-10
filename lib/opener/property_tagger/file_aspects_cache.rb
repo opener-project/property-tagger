@@ -36,7 +36,7 @@ module Opener
         mapping = Hash.new { |hash, key| hash[key] = [] }
 
         File.foreach(path) do |line|
-          lemma, pos, aspect = line.chomp.split("\t")
+          lemma, _pos, aspect = line.chomp.split("\t")
 
           mapping[lemma.to_sym] << aspect
         end

@@ -69,7 +69,7 @@ module Opener
           @terms = {}
 
           document.xpath('KAF/terms/term').each do |term|
-            @terms[term.attr('tid').to_sym] = term.attr('lemma')
+            @terms[term.attr('tid').to_sym] = { lemma: term.attr('lemma'), text: term.attr('text')}
           end
         end
 
@@ -81,34 +81,36 @@ module Opener
       # @return [Hash]
       #
       def extract_aspects
-        term_ids  = terms.keys
-        lemmas    = terms.values
-
-        current_token = 0
-        # Use of n-grams to determine if a unigram (1 lemma) or bigram (2
-        # lemmas) belong to a property.
-        max_ngram = 2
-
+        term_ids     = terms.keys
+        lemmas       = terms.values
         uniq_aspects = Hash.new { |hash, key| hash[key] = [] }
 
-        while current_token < terms.count
-          (0..max_ngram).each do |tam_ngram|
-            if current_token + tam_ngram <= terms.count
-              ngram = lemmas[current_token..current_token+tam_ngram].join(" ").downcase
+        [:lemma, :text].each do |k|
+          current_token = 0
+          # Use of n-grams to determine if a unigram (1 lemma) or bigram (2
+          # lemmas) belong to a property.
+          max_ngram = 2
 
-              if aspects[ngram.to_sym]
-                properties = aspects[ngram.to_sym]
-                ids        = term_ids[current_token..current_token+tam_ngram]
 
-                properties.uniq.each do |property|
-                  next if !property or property.strip.empty?
+          while current_token < terms.count
+            (0..max_ngram).each do |tam_ngram|
+              if current_token + tam_ngram <= terms.count
+                ngram = lemmas[current_token..current_token+tam_ngram].map{|a| a[k] }.join(" ").downcase
 
-                  uniq_aspects[property.to_sym] << [ids,ngram]
+                if aspects[ngram.to_sym]
+                  properties = aspects[ngram.to_sym]
+                  ids        = term_ids[current_token..current_token+tam_ngram]
+
+                  properties.uniq.each do |property|
+                    next if !property or property.strip.empty?
+
+                    uniq_aspects[property.to_sym] << [ids,ngram] unless uniq_aspects[property.to_sym].include? [ids,ngram]
+                  end
                 end
               end
             end
+            current_token += 1
           end
-          current_token += 1
         end
 
         Hash[uniq_aspects.sort]
