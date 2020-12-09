@@ -78,6 +78,7 @@ module Opener
 
       ##
       # Check which terms belong to an aspect (property)
+      # Text have priority over Lemmas, overriding if there is a conflict
       # @return [Hash]
       #
       def extract_aspects
