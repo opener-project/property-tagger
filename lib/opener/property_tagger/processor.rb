@@ -31,10 +31,11 @@ module Opener
         @pretty       = pretty
 
         @params       = params
-        @cache_keys   = params[:cache_keys] || {lang: language}
         @remote       = !url.nil?
         @aspects_path = path
         @aspects_url  = url
+        @cache_keys   = params[:cache_keys]
+        @cache_keys.merge! lang: @document.root.attr('xml:lang')
 
         @aspects = if @remote then REMOTE_ASPECTS_CACHE[**@cache_keys].aspects else FILE_ASPECTS_CACHE[aspects_file] end
       end
