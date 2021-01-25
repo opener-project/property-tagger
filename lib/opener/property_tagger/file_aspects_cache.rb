@@ -33,12 +33,17 @@ module Opener
       # @param [String] path
       #
       def load_aspects(path)
-        mapping = Hash.new { |hash, key| hash[key] = [] }
+        mapping = Hash.new{ |hash, key| hash[key] = [] }
 
-        File.foreach(path) do |line|
-          lemma, _pos, aspect = line.chomp.split("\t")
+        File.foreach path do |line|
+          lemma, pos, aspect = line.chomp.split("\t")
+          l = Hashie::Mash.new(
+            lemma:  lemma,
+            pos:    pos,
+            aspect: aspect,
+          )
 
-          mapping[lemma.to_sym] << aspect
+          mapping[l.lemma.to_sym] << l
         end
 
         return mapping

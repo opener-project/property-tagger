@@ -49,7 +49,10 @@ module Opener
         lexicons = lexicons['data'].map{ |l| Hashie::Mash.new l }
         mapping  = Hash.new{ |hash, key| hash[key] = [] }
         lexicons.each do |l|
-          mapping[l.lemma.to_sym] << l.aspect
+          mapping[l.lemma.to_sym] << l
+          l.variants&.each do |v|
+            mapping[v.lemma.to_sym] << l
+          end
         end
 
         mapping

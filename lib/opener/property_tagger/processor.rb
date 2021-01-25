@@ -6,7 +6,8 @@ module Opener
     class Processor
 
       attr_accessor :document
-      attr_accessor :aspects, :aspects_path, :aspects_url
+      attr_accessor :aspects_path, :aspects_url
+      attr_accessor :aspects, :lexicons
       attr_accessor :timestamp, :pretty
 
       ##
@@ -34,10 +35,10 @@ module Opener
         @remote       = !url.nil?
         @aspects_path = path
         @aspects_url  = url
-        @cache_keys   = params[:cache_keys]
+        @cache_keys   = params[:cache_keys] || {}
         @cache_keys.merge! lang: @document.root.attr('xml:lang')
 
-        @aspects = if @remote then REMOTE_ASPECTS_CACHE[**@cache_keys].aspects else FILE_ASPECTS_CACHE[aspects_file] end
+        @lexicons = if @remote then REMOTE_ASPECTS_CACHE[**@cache_keys].aspects else FILE_ASPECTS_CACHE[aspects_file] end
       end
 
       ##
@@ -45,15 +46,13 @@ module Opener
       # @return [String]
       #
       def process
-        existing_aspects = extract_aspects
-
         add_features_layer
         add_properties_layer
 
-        existing_aspects.each_with_index do |(key, value), index|
+        extract_aspects.each.with_index do |(lemma, values), index|
           index += 1
 
-          add_property(key, value, index)
+          add_property lemma, values, index
         end
 
         add_linguistic_processor
@@ -77,37 +76,41 @@ module Opener
         @terms
       end
 
+      # Use of n-grams to determine if a unigram (1 lemma) or bigram (2
+      # lemmas) belong to a property.
+      MAX_NGRAM = 2
+
       ##
       # Check which terms belong to an aspect (property)
       # Text have priority over Lemmas, overriding if there is a conflict
       # @return [Hash]
       #
       def extract_aspects
-        term_ids     = terms.keys
+        all_term_ids = terms.keys
         lemmas       = terms.values
-        uniq_aspects = Hash.new { |hash, key| hash[key] = [] }
+        uniq_aspects = Hash.new{ |hash, lemma| hash[lemma] = [] }
 
         [:lemma, :text].each do |k|
           current_token = 0
-          # Use of n-grams to determine if a unigram (1 lemma) or bigram (2
-          # lemmas) belong to a property.
-          max_ngram = 2
-
 
           while current_token < terms.count
-            (0..max_ngram).each do |tam_ngram|
-              if current_token + tam_ngram <= terms.count
-                ngram = lemmas[current_token..current_token+tam_ngram].map{|a| a[k] }.join(" ").downcase
+            (0..MAX_NGRAM).each do |tam_ngram|
+              next unless current_token + tam_ngram <= terms.count
 
-                if aspects[ngram.to_sym]
-                  properties = aspects[ngram.to_sym]
-                  ids        = term_ids[current_token..current_token+tam_ngram]
+              ngram = lemmas[current_token..current_token+tam_ngram].map{ |a| a[k] }.join(" ").downcase
 
-                  properties.uniq.each do |property|
-                    next if !property or property.strip.empty?
+              @lexicons[ngram.to_sym]&.each do |l|
+                properties = if l.aspects.present? then l.aspects else [l.aspect] end
+                properties.each do |p|
+                  next if p.blank?
+                  term_ids = all_term_ids[current_token..current_token+tam_ngram]
+                  next if uniq_aspects[p.to_sym].find{ |v| v.term_ids == term_ids }
 
-                    uniq_aspects[property.to_sym] << [ids,ngram] unless uniq_aspects[property.to_sym].include? [ids,ngram]
-                  end
+                  uniq_aspects[p.to_sym] << Hashie::Mash.new(
+                    term_ids: term_ids,
+                    ngram:    ngram,
+                    lexicon:  l,
+                  )
                 end
               end
             end
@@ -135,24 +138,25 @@ module Opener
         new_node("properties", "KAF/features")
       end
 
-      def add_property(key, value, index)
+      def add_property lemma, values, index
         property_node = new_node("property", "KAF/features/properties")
 
-        property_node['lemma'] = key.to_s
+        property_node['lemma'] = lemma.to_s
         property_node['pid']   = "p#{index.to_s}"
 
         references_node = new_node("references", property_node)
 
-        value.uniq.each do |v|
-          comm_node = Nokogiri::XML::Comment.new(references_node, " #{v.last} ")
+        values.each do |v|
+          comm_node = Nokogiri::XML::Comment.new(references_node, " #{v.ngram} ")
           references_node.add_child comm_node
 
-          span_node = new_node("span", references_node)
+          span_node = new_node 'span', references_node
 
-          v.first.each do |val|
-            target_node       = new_node("target", span_node)
+          v.term_ids.each do |id|
+            target_node       = new_node 'target', span_node
 
-            target_node['id'] = val.to_s
+            target_node['id'] = id.to_s
+            target_node['lexicon-id'] = v.lexicon.id if v.lexicon.id
           end
         end
       end
