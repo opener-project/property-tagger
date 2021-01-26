@@ -9,7 +9,7 @@ before_install:
 
 rvm:
   - 2.3
-  - jruby-9.2.7.0
+  #- jruby-9.2.7.0
 
 notifications:
   email:
