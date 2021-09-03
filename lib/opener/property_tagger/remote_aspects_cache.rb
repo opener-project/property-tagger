@@ -19,7 +19,6 @@ module Opener
       def [] **params
         existing = @cache[params]
         return existing if existing and existing.from > UPDATE_INTERVAL.ago
-        params[:contract_ids] = nil unless params[:contract_ids]
 
         synchronize do
           @cache[params] = cache_update @cache[params], **params
